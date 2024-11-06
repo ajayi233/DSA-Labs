@@ -42,10 +42,16 @@ isPalindrome('racecar')
 
 //fourth lab
 function wordCount(str) {
-    if(str && typeof text === 'string'){
-        let arr = str.split('')
-       return arr.length
+    if(typeof str !== "string"){
+        return "could not be completed"
     }
-    else{return 'Operations could not be completed'}
+        newString= str.replace(/\s/g,'')
+        return newString.length
 }
-wordCount('Daniel')
+// console.log(wordCount('Daniel is here'))
+
+
+//composite function
+const compositeFunction = (...fn)=> string => fn.reduce((accumulator, currentValue)=> currentValue(accumulator),string)
+const result= compositeFunction(reverse, wordCount)
+console.log(result('Daniel is here'))
