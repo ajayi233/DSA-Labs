@@ -6,7 +6,7 @@ const app = express();
 
 app.use(express.urlencoded({extended: true}))
 
-const indexPage = path.join(__dirname ,'public/indeex.html')
+const indexPage = path.join(__dirname ,'public/index.html')
 const usersPage = path.join(__dirname, 'public/users.html')
 
 //routes
