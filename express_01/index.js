@@ -6,7 +6,7 @@ const app = express();
 
 app.use(express.urlencoded({extended: true}))
 
-const indexPage = path.join(__dirname ,'public/index.html')
+const indexPage = path.join(__dirname ,'public/indeex.html')
 const usersPage = path.join(__dirname, 'public/users.html')
 
 //routes
@@ -24,9 +24,11 @@ app.post('/create-user', (req, res) => {
     res.redirect('/')
 })
 
+
+//error handling middleware
 app.use((err, req, res, next) => {
     console.error(err.stack) // Log the error stack trace
-    res.status(500).send('Something went wrong! Please try again later.') // Send a generic error message
+    res.status(500).send('Something went wrong! Please try again later.') 
 })
 
 
