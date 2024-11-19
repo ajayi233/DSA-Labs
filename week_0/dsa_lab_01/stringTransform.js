@@ -23,17 +23,17 @@
 // reverse("mountain");
 
 // //third lab
-function isPalindrome(str) {
-  if (str && typeof str === "string") {
-    let reversed = str.split("").reverse("").join("");
-    if (reversed === str) {
-      return true + ` ${str}, is a palindrome`;
-    }
-  } else {
-    return `Couldn't perform operation`;
-  }
-}
-isPalindrome("racecar");
+// function isPalindrome(str) {
+//   if (str && typeof str === "string") {
+//     let reversed = str.split("").reverse("").join("");
+//     if (reversed === str) {
+//       return true + ` ${str}, is a palindrome`;
+//     }
+//   } else {
+//     return `Couldn't perform operation`;
+//   }
+// }
+// isPalindrome("racecar");
 
 // //fourth lab
 // function wordCount(str) {
