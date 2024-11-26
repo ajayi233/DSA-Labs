@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>URL Shortener</title>
+  </head>
+  <style>
+    body {
+      /* background:linear-gradient(rgba(0, 247, 255, 0.685),rgb(119, 0, 255)); */
+      padding: 5rem;
+    }
+    *,
+    *::before,
+    *::after {
+      padding: 0;
+      margin: 0;
+      box-sizing: border-box;
+    }
+    .form {
+      width: 100%;
+      text-align: center;
+      margin-top: 5rem;
+      border: 1px solid dodgerblue;
+      padding: 5rem;
+    }
+    input {
+      width: 50%;
+      padding: 15px;
+      margin-bottom: 15px;
+      border-radius: 5px;
+    }
+    button {
+      width: 50%;
+      background-color: dodgerblue;
+      padding: 13px;
+      border: none;
+      border-radius: 5px;
+    }
+  </style>
+  <body>
+    <form action="/shorten" method="post">
+      <h2 style="text-align: center">Submit URL in form below</h2>
+      <div class="form">
+        <div class="form--area">
+          <label for="username" id="username-label"></label><br />
+          <input type="text" name="url" placeholder="Enter your link" /><br />
+          <button type="submit">Submit</button>
+        </div>
+      </div>
+    </form>
+    <h2 style="text-align: center">Previous links</h2>
+    <table border="1">
+      <thead>
+        <tr>
+          <th>Shortened URL</th>
+          <th>Original URL</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% urlMap.forEach((originalUrl, shortenedUrl) => { %>
+        <tr>
+          <td>
+            <a href="/<%= shortenedUrl %>"><%= shortenedUrl %></a>
+          </td>
+          <td>
+            <a href="<%= originalUrl %>" target="_blank"><%= originalUrl %></a>
+          </td>
+        </tr>
+        <% }) %>
+      </tbody>
+    </table>
+  </body>
+</html>
