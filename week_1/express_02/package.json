@@ -11,7 +11,9 @@
   "license": "ISC",
   "description": "",
   "dependencies": {
+    "ejs": "^3.1.10",
     "express": "^4.21.1",
-    "express_02": "file:"
+    "express_02": "file:",
+    "express-validator": "^7.2.0"
   }
 }
