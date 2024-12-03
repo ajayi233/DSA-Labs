@@ -1,9 +1,8 @@
 const loginUser = async function () {
   const email = document.getElementById("email").value;
   const password = document.getElementById("password").value;
-  const role = document.getElementById("role").value;
 
-  const data = { email, password, role };
+  const data = { email, password };
 
   if (!email || !password) {
     alert("all fields are required");
@@ -20,8 +19,10 @@ const loginUser = async function () {
     .then((response) => response.json())
     .then((data) => {
       console.log(data);
-      if (data.status === "success") {
+      if (data.status === "success" && data.role === "user") {
         window.location.assign("/users/userHome");
+      } else if (data.status === "success" && data.role === "admin") {
+        window.location.assign("/users/adminHome");
       } else if (data.status == "failed") {
         alert(data.message);
       }

@@ -32,12 +32,13 @@ exports.viewAllUsers = (req, res, next) => {
     });
 };
 
+//user dashboard
 exports.usersHome = async (req, res, next) => {
   try {
     // Fetch book data from the database
     const [books] = await mySqlPool.execute(
       `
-      SELECT 
+    SELECT 
     books.title,
     genreName AS genre,
     books.author,
@@ -45,10 +46,11 @@ exports.usersHome = async (req, res, next) => {
     books.yearPublished
 FROM 
     books
-LEFT JOIN 
+INNER JOIN 
     genre
 ON 
     books.genreID = genre.genreId;
+
     `
     );
 
@@ -57,6 +59,17 @@ ON
   } catch (error) {
     next(error); // Pass the error to the error handler
   }
+};
+
+//user past transactions
+exports.userTransactions = (req, res) => {
+  const [transactions] = mySqlPool.execute(
+    `
+    SELECT * FROM transactions WHERE userID = ?
+    `,
+    [req.user.userId]
+  );
+  res.status(200).render("../views/userTransactions.ejs");
 };
 
 //user registration
@@ -96,9 +109,12 @@ exports.userLogin = async (req, res, next) => {
     if (!result.length > 0) {
       throw new Error("enter valid credentials");
     }
-    res
-      .status(200)
-      .json({ status: "success", message: "User logged in successfully" });
+
+    res.status(200).json({
+      status: "success",
+      message: "User logged in successfully",
+      role: result[0].role,
+    });
   } catch (err) {
     next(err);
   }

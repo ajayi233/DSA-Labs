@@ -35,7 +35,6 @@
                                 <th >Author</th>
                                 <th>Publisher</th>
                                 <th>Available</th>
-                                <th>Actions</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -47,12 +46,6 @@
                               <td><%= book.author %></td>
                               <td><%= book.publisher %></td>
                               <td><%= book.available === 1 ? 'Yes' : 'No' %></td>
-                              <td>
-                                <a href="">Edit</a>
-                                <form>
-                                  <button type="submit"> Borrow</button>
-                                </form>
-                              </td>
                             </tr>
                           <% }); %>
                         </tbody>
