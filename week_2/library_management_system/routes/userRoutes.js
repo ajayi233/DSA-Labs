@@ -5,6 +5,7 @@ const {
   loginPage,
   forgotPasswordPage,
   resetPasswordPage,
+  resetPassword,
   userLogin,
   userLogout,
   adminLogin,
@@ -31,10 +32,9 @@ router.get("/viewUsers/:key", checkParams, viewAllUsers);
 //post requests
 router.post("/register", registerUser);
 router.post("/login", userLogin);
-router.post("/reset-password", resetPasswordPage);
 router.post("/logout", userLogout);
 
 //patch requests
-router.patch("/reset-password/:token", resetPasswordPage);
+router.patch("/reset-password", resetPassword);
 
 module.exports = router;

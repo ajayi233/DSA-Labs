@@ -91,7 +91,9 @@ exports.registerUser = async (req, res) => {
     );
     console.log(result);
 
-    res.status(200).json({ message: "User registered successfully" });
+    res
+      .status(200)
+      .json({ status: "success", message: "User registered successfully" });
   } catch (error) {
     next(error);
   }
@@ -124,11 +126,10 @@ exports.userLogin = async (req, res, next) => {
 exports.resetPassword = async (req, res, next) => {
   try {
     const { password } = req.body;
-    const { token } = req.params;
     if (!password) {
       throw new Error("All fields are required");
     }
-    const result = await user_model.resetPassword(password, token);
+    const result = await user_model.resetPassword(password);
     res
       .status(200)
       .json({ status: "success", message: "Password reset successfully" });
@@ -146,7 +147,7 @@ exports.userLogout = async (req, res, next) => {
   }
 };
 
-//admin login
+//admin login page completed
 exports.adminLogin = (req, res) => {
   try {
     res.status(200).render("../views/adminHome.ejs");

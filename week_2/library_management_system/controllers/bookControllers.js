@@ -17,3 +17,20 @@ exports.deleteBookPage = (req, res) => {
 exports.getBooksPage = (req, res) => {
   res.status(200).render("../views/bookRelatedPages/getBooks.ejs");
 };
+
+exports.viewBookPage = (req, res) => {
+  res.status(200).render("../views/bookRelatedPages/viewBook.ejs");
+};
+
+exports.borrowBook = async (req, res, next) => {
+  try {
+    const { bookId, userId } = req.body;
+    if (!bookId || !userId) {
+      throw new Error("All fields are required");
+    }
+    const result = await book_model.borrowBook(bookId, userId);
+    res.status(200).json({ status: "success", message: "Book borrowed" });
+  } catch (err) {
+    next(err);
+  }
+};

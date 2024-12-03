@@ -38,14 +38,7 @@ const createNewUser = async (
 ) => {
   const userQuery = `INSERT INTO users(name, email, phone, role, password, borrowed_books) VALUES(?, ?, ?, ?, ?, ?)`;
   const values = [name, email, phone, role, password, borrowed_books];
-  const userRow = await mySqlPool
-    .query(userQuery, values)
-    .then((result) => {
-      console.log("object");
-    })
-    .catch((err) => {
-      console.log(err);
-    });
+  const userRow = await mySqlPool.query(userQuery, values);
   return userRow;
 };
 
