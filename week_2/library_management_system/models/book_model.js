@@ -9,7 +9,7 @@ genreID INT NOT NULL,
 author VARCHAR(255) NOT NULL,
 publisher VARCHAR(255) NOT NULL,
 yearPublished INT NOT NULL,
-available BOOLEAN,
+available BOOLEAN default true,
 copies INT NOT NULL,
 created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 )
@@ -25,31 +25,16 @@ created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
     });
 };
 
-module.exports = createBookTable;
+const getBookById = async (id) => {
+  const bookQuery = `SELECT * FROM books WHERE id = ? `;
+  const row = await mySqlPool.query(bookQuery, [id]);
+  return row[0];
+};
 
-class Books {
-  constructor(
-    title,
-    genreID,
-    author,
-    publisher,
-    yearPublished,
-    available,
-    copies
-  ) {
-    this.title = title;
-    this.genreID = genreID;
-    this.author = author;
-    this.publisher = publisher;
-    this.yearPublished = yearPublished;
-    this.available = available;
-    this.copies = copies;
-  }
-
-  // books functions
-
-  static getAllBooks = () => {
-    const rows = mySqlPool.query(`SELECT * FROM books`);
-    return rows[0];
-  };
-}
+const updateBookCopies = async (id) => {
+  const bookQuery = `UPDATE books SET copies = copies-1 WHERE id = ?`;
+  const values = [id];
+  const row= await mySqlPool.query(bookQuery, values);
+  return row;
+};
+module.exports = { createBookTable, getBookById,updateBookCopies };

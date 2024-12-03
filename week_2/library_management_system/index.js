@@ -9,6 +9,9 @@ const createTransactionTable = require("./models/transaction_model");
 const createGenreTable = require("./models/genre");
 const router = require("./routes/userRoutes");
 const bookRouter = require("./routes/bookRoutes");
+const bookModel = require("./models/book_model");
+const transactionModel = require("./models/transaction_model");
+const transactionRoutes = require("./routes/transactionRoutes");
 
 //initializing express
 const app = express();
@@ -27,12 +30,13 @@ app.get("/", (req, res) => {
   res.render("index");
 });
 
+
 //user routes
 app.use("/users", router);
 
 //book routes
 app.use("/books", bookRouter);
-
+app.use("/transactions", transactionRoutes);
 //404
 app.get("*", (req, res) => {
   res.status(404).json({ message: "Page not found" });
@@ -50,10 +54,10 @@ app.use((err, req, res, next) => {
 });
 
 //table creation
-createBookTable();
+bookModel.createBookTable();
 user_model.createUserTable();
 createReservationTable();
-createTransactionTable();
+transactionModel.createTransactionTable();
 createGenreTable();
 
 // creating server

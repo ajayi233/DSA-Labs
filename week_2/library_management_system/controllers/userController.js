@@ -39,6 +39,7 @@ exports.usersHome = async (req, res, next) => {
     const [books] = await mySqlPool.execute(
       `
     SELECT 
+    books.id,
     books.title,
     genreName AS genre,
     books.author,

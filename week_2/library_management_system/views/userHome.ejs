@@ -8,8 +8,7 @@
     <p>User Dashboard</p>
   </ul>
   <ul>
-    <li><a href="/user/reservations">Reservations</a></li>
-    <li><a href="/user/transactions">Transactions</a></li>
+    <li><a href="/transactions/history">Previous Transactions</a></li>
     <li><a href="/user/logout">Logout</a></li>
   </ul>
 </nav>
@@ -37,13 +36,13 @@
                             <tr>
                               <td><%= book.title %></td>
                               <td><%= book.description || 'N/A' %></td>
-                              <td><%= book.genre_id || 'N/A' %></td>
+                              <td><%= book.genre%></td>
                               <td><%= book.author %></td>
                               <td><%= book.publisher %></td>
                               <td><%= book.available === 1 ? 'Yes' : 'No' %></td>
                               <td>
-                                <a href="/books/updateBook/<%= book.book_id %>" class="btn btn-primary">View</a>
-                                <a href="/books/deleteBook/<%= book.book_id %>" class="btn btn-danger">Borrow</a>
+                                <a href="/books/borrowBook/<%=book.id %>" class="btn btn-primary">View</a>
+                                <!-- <a href="/books/borrowBook/<%= book.id %>" class="btn btn-danger">Borrow</a> -->
                               </td>
                             </tr>
                           <% }); %>

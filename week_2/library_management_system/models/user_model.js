@@ -88,8 +88,16 @@ const updateUser = async (userId) => {
     });
 };
 
+const borrowBook = async (userId) => {
+  const userQuery = `UPDATE users SET borrowed_books = borrowed_books + 1 WHERE userId = ?`;
+  const values = [userId];
+  const userRow = await mySqlPool.query(userQuery, values);
+  return userRow;
+};
+
 module.exports = {
   createUserTable,
   createNewUser,
   login,
+  borrowBook
 };
