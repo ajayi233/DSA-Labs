@@ -1,21 +1,32 @@
 <%- include('partials/header') %>
 
-<h1>Login</h1>
+<section class="form--container">
+  <form class="login--form">
+    <h1>Login</h1>
+    <label for="email">Email:</label>
+    <input type="email" id="email" name="email" required />
+    <br />
+    <label for="password">Password:</label>
+    <input type="password" id="password" name="password" required />
 
-<form action="" method="post">
-  <label for="email">Email:</label>
-  <input type="email" id="email" name="email" required />
-  <br />
-  <label for="password">Password:</label>
-  <input type="password" id="password" name="password" required />
-  <br />
-  <input type="submit" value="Login" />
-  <br />
-  <!-- forgot password -->
-  <a href="/users/forgot-password">forgot password</a>
+    <br />
+    <label for="role">Role:</label>
+    <select id="role" name="role" required>
+      <option value="admin">Admin</option>
+      <option value="user">User</option>
+    </select>
+    <br />
 
-  <br />
-  <a href="/users/signup">create account</a>
-</form>
+    <br />
+    <input type="submit" value="Login" class="submit--btn" />
+    <br />
+    <div class="links--container">
+      <a href="/users/forgot-password">forgot password</a>
 
+      <br />
+      <a href="/users/signup">create account</a>
+    </div>
+  </form>
+</section>
+<script src="/js/loginDom.js"></script>
 <%- include('partials/footer') %>

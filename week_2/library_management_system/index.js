@@ -14,6 +14,7 @@ const bookRouter = require("./routes/bookRoutes");
 const app = express();
 
 //adding middleware
+app.use(express.static(__dirname + "/public"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
@@ -39,8 +40,13 @@ app.get("*", (req, res) => {
 
 //error handling middleware
 app.use((err, req, res, next) => {
-  console.error(err.stack); // Log the error stack trace
-  res.status(500).send("Something went wrong! Please try again later.");
+  const statusCode = err.statusCode ? err.statuCode : 500;
+
+  res.status(statusCode).json({
+    status: "failed",
+    message: err.message,
+    stack: err.stack,
+  });
 });
 
 //table creation
