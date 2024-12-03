@@ -1,4 +1,4 @@
-const adminSecretKey = process.env.ADMIN_SECRET_KEY || "1234";
+const adminSecretKey = process.env.ADMIN_SECRET_KEY;
 
 exports.checkParams = (req, res, next) => {
   try {

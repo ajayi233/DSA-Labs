@@ -10,8 +10,8 @@ const bookRouter = express.Router();
 
 //page rendering
 //protecting these routes for the admin / librarian
-bookRouter.get("/addBook/:key", checkParams, addBookPage);
-bookRouter.get("/updateBook/:key", checkParams, updateBookPage);
+bookRouter.get("/addBook", addBookPage);
+bookRouter.get("/updateBook", updateBookPage);
 bookRouter.get("/deleteBook/:key", checkParams, deleteBookPage);
 
 //post requests

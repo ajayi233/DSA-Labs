@@ -27,7 +27,7 @@ router.get("/userHome", usersHome);
 // check params middleware
 
 router.get("/adminHome", adminLogin);
-router.get("/viewUsers/:key", checkParams, viewAllUsers);
+router.get("/viewUsers", viewAllUsers);
 
 //post requests
 router.post("/register", registerUser);
