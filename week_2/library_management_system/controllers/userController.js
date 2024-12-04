@@ -104,9 +104,6 @@ exports.registerUser = async (req, res) => {
 exports.userLogin = async (req, res, next) => {
   try {
     const { email, password } = req.body;
-    if (!email || !password) {
-      throw new Error("All fields are required");
-    }
     const result = await user_model.login(email, password);
     // console.log(result)
     if (!result.length > 0) {
@@ -149,10 +146,28 @@ exports.userLogout = async (req, res, next) => {
 };
 
 //admin login page completed
-exports.adminLogin = (req, res) => {
+exports.adminLogin = async (req, res, next) => {
   try {
-    res.status(200).render("../views/adminHome.ejs");
+    const [books] = await mySqlPool.execute(
+      `
+    SELECT 
+    books.id,
+    books.title,
+    genreName AS genre,
+    books.author,
+    books.publisher,
+    books.yearPublished
+FROM 
+    books
+INNER JOIN 
+    genre
+ON 
+    books.genreID = genre.genreId;
+
+    `
+    );
+    res.status(200).render("../views/adminHome.ejs", { books });
   } catch (err) {
-    throw err ? err.message : err;
+    next(err);
   }
 };

@@ -18,16 +18,15 @@ const bookRouter = express.Router();
 //protecting these routes for the admin / librarian
 bookRouter.get("/addBook", addBookPage);
 bookRouter.get("/borrowBook/:bookId", borrowBookPage);
-bookRouter.get("/updateBook", updateBookPage);
 bookRouter.get("/deleteBook/:key", checkParams, deleteBookPage);
-bookRouter.get("/updateBook", updateBookPage);
+bookRouter.get("/updateBook/:bookId", updateBookPage);
 bookRouter.get("/viewBooks/:bookId", viewBookPage);
 
 //post and put requests
 bookRouter.post("/addBook", addBook);
 bookRouter.post("/viewBooks/", viewBook);
 bookRouter.post("/borrowBook", borrowBookPage);
-bookRouter.put("/updateBook/:bookId", updateBook);
-bookRouter.post("/deleteBook/:key", checkParams, deleteBook);
+bookRouter.patch("/update/:bookId", updateBook);
+bookRouter.delete("/deleteBook/:bookId", deleteBook);
 
 module.exports = bookRouter;

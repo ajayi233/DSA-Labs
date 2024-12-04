@@ -53,4 +53,34 @@ const addBook = async (book) => {
   return row;
 };
 
-module.exports = { createBookTable, getBookById, updateBookCopies, addBook };
+const updateBook = async (id, book) => {
+  const bookQuery = `UPDATE books SET title = ?,genreID = ?, author = ?, publisher = ?, yearPublished = ?, copies = ?, description = ? WHERE id = ?`;
+  const values = [
+    book.title,
+    book.genreID,
+    book.author,
+    book.publisher,
+    book.yearPublished,
+    book.copies,
+    book.description,
+    id,
+  ];
+  const row = await mySqlPool.query(bookQuery, values);
+  return row;
+};
+
+const deleteBook = async (id) => {
+  const bookQuery = `DELETE FROM books WHERE id = ?`;
+  const values = [id];
+  const row = await mySqlPool.query(bookQuery, values);
+  return row;
+};
+
+module.exports = {
+  createBookTable,
+  getBookById,
+  updateBookCopies,
+  addBook,
+  updateBook,
+  deleteBook,
+};

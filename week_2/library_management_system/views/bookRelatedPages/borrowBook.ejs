@@ -24,25 +24,30 @@
     placeholder="Enter User ID"
     required
   />
-  <input onclick="borrowBooks(event)" class="borrow--btn" type="submit" value="Borrow" />
+  <input
+    onclick="borrowBooks(event)"
+    class="borrow--btn"
+    type="submit"
+    value="Borrow"
+  />
 </form>
- <script>
-  const borrowBooks = async function(e){
-  e.preventDefault();
-  const pathname = window.location.pathname;
-  const splitted =pathname.split('/');
-  const id= splitted.at(-1);
+<script>
+  const borrowBooks = async function (e) {
+    e.preventDefault();
+    const pathname = window.location.pathname;
+    const splitted = pathname.split("/");
+    const id = splitted.at(-1);
 
-  const userId = document.getElementById("userID").value;
-  await fetch(`/transactions/create-transaction/${id}`, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ userId }),
-  })
-    .then((response) => response.json())
-    .then((data) => console.log(data))
-    .catch((error) => console.log(error));
-};
- </script>
+    const userId = document.getElementById("userID").value;
+    await fetch(`/transactions/create-transaction/${id}`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ userId }),
+    })
+      .then((response) => response.json())
+      .then((data) => console.log(data))
+      .catch((error) => console.log(error));
+  };
+</script>
 <!-- <script src="/js/borrowBookDom.js"></script> -->
 <%- include('../partials/footer') %>

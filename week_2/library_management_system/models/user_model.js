@@ -46,8 +46,9 @@ const createNewUser = async (
 const login = async (email, password) => {
   const userQuery = `SELECT * FROM users WHERE email = ? AND password = ?`;
   const values = [email, password];
+  console.log(values);
   const userRow = await mySqlPool.query(userQuery, values);
-  console.log(userRow[0]);
+  console.log(userRow);
   return userRow[0];
 };
 
@@ -99,5 +100,5 @@ module.exports = {
   createUserTable,
   createNewUser,
   login,
-  borrowBook
+  borrowBook,
 };

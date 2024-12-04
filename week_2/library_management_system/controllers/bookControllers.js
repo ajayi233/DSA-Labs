@@ -6,8 +6,11 @@ exports.addBookPage = (req, res) => {
   res.status(200).render("../views/bookRelatedPages/addBook.ejs");
 };
 
-exports.updateBookPage = (req, res) => {
-  res.status(200).render("../views/bookRelatedPages/updateBook.ejs");
+exports.updateBookPage = async (req, res) => {
+  const bookId = req.params.bookId;
+  const result = await book_model.getBookById(bookId);
+  const book = result[0];
+  res.status(200).render("../views/bookRelatedPages/updateBook.ejs", { book });
 };
 
 exports.deleteBookPage = (req, res) => {
@@ -116,10 +119,10 @@ exports.addBook = async (req, res, next) => {
 exports.deleteBook = async (req, res, next) => {
   try {
     const bookId = req.params.bookId;
-    if (!bookId) {
-      throw new Error("All fields are required");
-    }
     const result = await book_model.deleteBook(bookId);
+    if (result.affectedRows === 0) {
+      throw new Error("Book not deleted");
+    }
     res.status(200).json({ status: "success", message: "Book deleted" });
   } catch (err) {
     next(err);
@@ -130,36 +133,43 @@ exports.deleteBook = async (req, res, next) => {
 exports.updateBook = async (req, res, next) => {
   try {
     const bookId = req.params.bookId;
-    const { title, author, publisher, yearPublished } = req.body;
-    if (!bookId || !title || !author || !publisher || !yearPublished) {
-      throw new Error("All fields are required");
-    }
-    const result = await book_model.updateBook(
-      bookId,
+    console.log(bookId);
+    const {
       title,
+      genreID,
       author,
       publisher,
-      yearPublished
-    );
+      yearPublished,
+      copies,
+      description,
+    } = req.body;
+
+    if (
+      !title ||
+      !genreID ||
+      !author ||
+      !publisher ||
+      !yearPublished ||
+      !copies ||
+      !description
+    ) {
+      throw new Error("All fields are required");
+    }
+
+    const result = await book_model.updateBook(bookId, {
+      title,
+      genreID,
+      author,
+      publisher,
+      yearPublished,
+      copies,
+      description,
+    });
+    if (result.affectedRows === 0) {
+      throw new Error("Book not updated");
+    }
     res.status(200).json({ status: "success", message: "Book updated" });
   } catch (err) {
     next(err);
   }
-
-  // try {
-  //   const { bookId, title, author, publisher, yearPublished } = req.body;
-  //   if (!bookId || !title || !author || !publisher || !yearPublished) {
-  //     throw new Error("All fields are required");
-  //   }
-  //   const result = await book_model.updateBook(
-  //     bookId,
-  //     title,
-  //     author,
-  //     publisher,
-  //     yearPublished
-  //   );
-  //   res.status(200).json({ status: "success", message: "Book updated" });
-  // } catch (err) {
-  //   next(err);
-  // }
 };

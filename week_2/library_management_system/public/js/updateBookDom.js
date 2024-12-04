@@ -1,20 +1,22 @@
-const updateBook = async (bookId) => {
+const updateBook = async () => {
   const title = document.querySelector("#title").value;
   const genreID = document.querySelector("#genre").value;
   const author = document.querySelector("#author").value;
   const publisher = document.querySelector("#publisher").value;
-  const yearPublished = document.querySelector("#yearPublished").value;
-  const available = document.querySelector("#available").value;
-  const copies = document.querySelector("#copies").value;
+  const yearPublished = document.querySelector("#publicationDate").value;
+  const copies = document.querySelector("#availableCopies").value;
+  const description = document.querySelector("#description").value;
 
+  const splittedURL = window.location.pathname.split("/");
+  const bookId = splittedURL[splittedURL.length - 1];
   const book = {
     title,
     genreID,
     author,
     publisher,
     yearPublished,
-    available,
     copies,
+    description,
   };
 
   if (
@@ -23,15 +25,15 @@ const updateBook = async (bookId) => {
     !author ||
     !publisher ||
     !yearPublished ||
-    !available ||
+    !description ||
     !copies
   ) {
     alert("All fields are required");
     return;
   }
 
-  await fetch(`/books/updateBook/${bookId}`, {
-    method: "PUT",
+  await fetch(`/books/update/${bookId}`, {
+    method: "PATCH",
     headers: {
       "Content-Type": "application/json",
     },
@@ -41,18 +43,17 @@ const updateBook = async (bookId) => {
     .then((data) => {
       console.log(data);
       if (data.status === "success") {
-        window.location.assign("/books");
+        alert("Book modified successfully");
       } else if (data.status === "failed") {
         alert(data.message);
       }
     })
     .catch((error) => {
-      console.error("Error:", error);
-      alert("An error occurred. Please try again.");
+      console.log(error);
     });
 };
 
-document.querySelector(".updateBook--btn").addEventListener("click", (e) => {
+document.querySelector(".editBook--btn").addEventListener("click", (e) => {
   e.preventDefault();
   updateBook();
 });
