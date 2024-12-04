@@ -12,7 +12,7 @@
   <input type="text" id="title" name="title" required />
   <br />
   <label for="genre">Genre:</label>
-  <input type="text" id="genre" name="genre" required />
+  <input type="number" id="genre" name="genre" required />
 
   <label for="authors">Authors:</label>
   <input type="text" id="author" name="author" required />
@@ -21,15 +21,14 @@
   <label for="publisher">Publisher:</label>
   <input type="text" id="publisher" name="publisher" required />
   <br />
-  
-  <label for="category">Category:</label>
-  <input type="text" id="category" name="category" required />
-  <br />
-  <label for="publicationDate">Publication Date:</label>
-  <input type="date" id="publicationDate" name="publicationDate" required />
+  <label for="publicationDate">Publication Year:</label>
+  <input type="number" id="publicationDate" name="publicationDate" required />
   <br />
   <label for="availableCopies">Available Copies:</label>
   <input type="number" id="availableCopies" name="availableCopies" required />
+  
+  <label for="description">Description</label>
+  <textarea name="description" id="description" rows="5" cols="30"></textarea>
   <br />
   <input type="submit" value="Add Book" class="addBook--btn" />
 </form>

@@ -4,12 +4,12 @@ const createBookTable = async () => {
   const bookQuery = `CREATE TABLE IF NOT EXISTS books(
 id INT AUTO_INCREMENT PRIMARY KEY,
 title VARCHAR(255) NOT NULL,
-description VARCHAR(255),
+description TEXT,
 genreID INT NOT NULL,
 author VARCHAR(255) NOT NULL,
 publisher VARCHAR(255) NOT NULL,
 yearPublished INT NOT NULL,
-available BOOLEAN default true,
+available BOOLEAN DEFAULT TRUE,
 copies INT NOT NULL,
 created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 )
@@ -34,23 +34,23 @@ const getBookById = async (id) => {
 const updateBookCopies = async (id) => {
   const bookQuery = `UPDATE books SET copies = copies-1 WHERE id = ?`;
   const values = [id];
-  const row= await mySqlPool.query(bookQuery, values);
+  const row = await mySqlPool.query(bookQuery, values);
   return row;
 };
 
 const addBook = async (book) => {
-  const bookQuery = `INSERT INTO books(title, description, genreID, author, publisher, yearPublished, available, copies) VALUES(?, ?, ?, ?, ?, ?, ?, ?)`;
+  const bookQuery = `INSERT INTO books (title, genreID, author, publisher, yearPublished, copies,description) VALUES(?, ?, ?, ?, ?, ?, ?)`;
   const values = [
     book.title,
-    book.description,
     book.genreID,
     book.author,
     book.publisher,
     book.yearPublished,
-    book.available,
     book.copies,
+    book.description,
   ];
   const row = await mySqlPool.query(bookQuery, values);
   return row;
-}
-module.exports = { createBookTable, getBookById,updateBookCopies };
+};
+
+module.exports = { createBookTable, getBookById, updateBookCopies, addBook };

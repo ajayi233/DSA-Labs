@@ -69,25 +69,48 @@ exports.viewBook = async (req, res, next) => {
   }
 };
 
-
 // adding a book
 exports.addBook = async (req, res, next) => {
   try {
-    const { title, author, category, publisher, yearPublished } = req.body;
+    const {
+      title,
+      genreID,
+      author,
+      publisher,
+      yearPublished,
+      copies,
+      description,
+    } = req.body;
 
-    console.log(title);
-   
-    // const { title, author, category, publisher, yearPublished } = req.body;
-    // if (!title || !author || !publisher || !yearPublished) {
-    //   throw new Error("All fields are required");
-    // }
-    // const result = await book_model.addBook(title, author, publisher, yearPublished);
-    // res.status(200).json({ status: "success", message: "Book added" });
-  }  catch (err) {
+    if (
+      !title ||
+      !genreID ||
+      !author ||
+      !publisher ||
+      !yearPublished ||
+      !copies ||
+      !description
+    ) {
+      throw new Error("All fields are required");
+    }
+
+    const result = await book_model.addBook({
+      title,
+      genreID,
+      author,
+      publisher,
+      yearPublished,
+      copies,
+      description,
+    });
+    if (result.affectedRows === 0) {
+      throw new Error("Book not added");
+    }
+    res.status(200).json({ status: "success", message: "Book added" });
+  } catch (err) {
     next(err);
   }
 };
-
 
 //deleting a book
 exports.deleteBook = async (req, res, next) => {
@@ -102,7 +125,6 @@ exports.deleteBook = async (req, res, next) => {
     next(err);
   }
 };
-
 
 //updating a book
 exports.updateBook = async (req, res, next) => {

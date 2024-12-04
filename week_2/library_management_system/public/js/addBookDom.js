@@ -3,9 +3,9 @@ const userAddBook = async () => {
   const genreID = document.querySelector("#genre").value;
   const author = document.querySelector("#author").value;
   const publisher = document.querySelector("#publisher").value;
-  const yearPublished = document.querySelector("#yearPublished").value;
-  const available = document.querySelector("#available").value;
-  const copies = document.querySelector("#copies").value;
+  const yearPublished = document.querySelector("#publicationDate").value;
+  const copies = document.querySelector("#availableCopies").value;
+  const description = document.querySelector("#description").value;
 
   const book = {
     title,
@@ -14,6 +14,7 @@ const userAddBook = async () => {
     publisher,
     yearPublished,
     copies,
+    description
   };
 
   if (
@@ -22,7 +23,7 @@ const userAddBook = async () => {
     !author ||
     !publisher ||
     !yearPublished ||
-    !available ||
+    !description ||
     !copies
   ) {
     alert("All fields are required");

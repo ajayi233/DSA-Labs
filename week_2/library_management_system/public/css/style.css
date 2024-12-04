@@ -107,14 +107,14 @@ footer p {
   padding: 1rem;
   background-color: rgb(255, 0, 140);
   color: white;
-  position: absolute;
+  /* position: absolute;
   left: 0;
   right: 0;
-  bottom: 0;
+  bottom: 0; */
 }
 
 /* input styles here */
-input {
+input,textarea {
   padding: 10px;
   border: 1px solid #ccc;
   border-radius: 5px;
