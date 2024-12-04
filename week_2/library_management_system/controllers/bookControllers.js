@@ -74,12 +74,16 @@ exports.viewBook = async (req, res, next) => {
 exports.addBook = async (req, res, next) => {
   try {
     const { title, author, category, publisher, yearPublished } = req.body;
-    if (!title || !author || !publisher || !yearPublished) {
-      throw new Error("All fields are required");
-    }
-    const result = await book_model.addBook(title, author, publisher, yearPublished);
-    res.status(200).json({ status: "success", message: "Book added" });
-  } catch (err) {
+
+    console.log(title);
+   
+    // const { title, author, category, publisher, yearPublished } = req.body;
+    // if (!title || !author || !publisher || !yearPublished) {
+    //   throw new Error("All fields are required");
+    // }
+    // const result = await book_model.addBook(title, author, publisher, yearPublished);
+    // res.status(200).json({ status: "success", message: "Book added" });
+  }  catch (err) {
     next(err);
   }
 };

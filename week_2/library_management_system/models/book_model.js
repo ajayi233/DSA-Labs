@@ -37,4 +37,20 @@ const updateBookCopies = async (id) => {
   const row= await mySqlPool.query(bookQuery, values);
   return row;
 };
+
+const addBook = async (book) => {
+  const bookQuery = `INSERT INTO books(title, description, genreID, author, publisher, yearPublished, available, copies) VALUES(?, ?, ?, ?, ?, ?, ?, ?)`;
+  const values = [
+    book.title,
+    book.description,
+    book.genreID,
+    book.author,
+    book.publisher,
+    book.yearPublished,
+    book.available,
+    book.copies,
+  ];
+  const row = await mySqlPool.query(bookQuery, values);
+  return row;
+}
 module.exports = { createBookTable, getBookById,updateBookCopies };

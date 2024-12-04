@@ -25,7 +25,23 @@ exports.history = async function (req, res, next) {
     const data = await mySqlPool
       .execute(`SELECT * FROM transactions`)
       .then(([result]) => result);
-    res.render("../views/bookRelatedPages/transaction.ejs", { transactions:data });
+    res.render("../views/bookRelatedPages/transaction.ejs", {
+      transactions: data,
+    });
+  } catch (err) {
+    next(err);
+  }
+};
+
+exports.userHistory = async function (req, res, next) {
+  try {
+    const userId = 5; //hardcoded to fetch user history
+    const data = await mySqlPool
+      .execute(`SELECT * FROM transactions WHERE userID = ?`, [userId])
+      .then(([result]) => result);
+    res.render("../views/bookRelatedPages/transaction.ejs", {
+      transactions: data,
+    });
   } catch (err) {
     next(err);
   }
