@@ -24,8 +24,6 @@
     }
   </style>
   <body>
-    <!-- on submit add the username to the list below  -->
-    <!-- modify to add created users in a new li-->
     <div class="container">
       <ul>
         <li>Ferdinald Dogbey</li>
@@ -34,4 +32,17 @@
       </ul>
     </div>
   </body>
+
+  <script>
+    //on submit add the username to the list below
+    //modify to add created users in a new li
+    const form = document.querySelector("form");
+    form.addEventListener("submit", (e) => {
+      e.preventDefault();
+      const username = document.querySelector("input").value;
+      const li = document.createElement("li");
+      li.textContent = username;
+      document.querySelector("ul").appendChild(li);
+    });
+  </script>
 </html>
