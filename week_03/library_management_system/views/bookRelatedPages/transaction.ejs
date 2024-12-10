@@ -1,0 +1,16 @@
+<%- include('../partials/header') %>
+
+<h1>Past Transactions</h1>
+
+<% transactions.forEach((transaction) => { %>
+<div style="margin-bottom: 2rem;">
+  <p>Transaction ID: <%- transaction.transactionId %></p>
+  <p>Book ID: <%- transaction.bookId %></p>
+  <p>User ID: <%- transaction.userId %></p>
+  <p>Borrow Date: <%- transaction.borrowDate.toLocaleDateString("en-US") %></p>
+  <p>Return Date: <%- transaction.returnDate %></p>
+  <p>Is Returned: <%- transaction.isReturned %></p>
+</div>
+<% }); %>
+
+<%- include('../partials/footer') %>

@@ -1,0 +1,17 @@
+<%- include('../partials/header') %>
+
+<nav>
+  <ul>
+    <li><a href="/users/admin/:key">Admin Dashboard</a></li>
+  </ul>
+</nav>
+
+<form action="">
+  <h1>Delete a Book</h1>
+  <label for="bookId">Book ID:</label>
+  <input type="text" id="bookId" name="bookId" required />
+  <br />
+  <input type="submit" value="Delete Book" class="deleteBook--btn" />
+</form>
+
+<%- include('../partials/footer') %>

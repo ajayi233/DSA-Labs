@@ -1,0 +1,53 @@
+<%- include('../partials/header') %>
+
+<nav>
+  <ul>
+    <li><a href="/users/admin">Admin Dashboard</a></li>
+  </ul>
+</nav>
+
+<h1>Book details</h1>
+<div>
+  <p>Title: <%- book.title %></p>
+  <p>Author: <%- book.author %></p>
+  <p>Genre: <%- book.genre %></p>
+  <p>Available: <%- book.available %></p>
+  <p>Copies: <%- book.copies %></p>
+  <p>Year Published: <%- book.yearPublished %></p>
+  <p>Publisher: <%- book.publisher %></p>
+</div>
+<form>
+  <input
+    type="number"
+    name="userId"
+    id="userID"
+    placeholder="Enter User ID"
+    required
+  />
+  <input
+    onclick="borrowBooks(event)"
+    class="borrow--btn"
+    type="submit"
+    value="Borrow"
+  />
+</form>
+<script>
+  const borrowBooks = async function (e) {
+    e.preventDefault();
+    const pathname = window.location.pathname;
+    const splitted = pathname.split("/");
+    const id = splitted.at(-1);
+
+    const userId = document.getElementById("userID").value;
+    await fetch(`/transactions/create-transaction/${id}`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ userId }),
+    })
+      .then((response) => response.json())
+      .then((data) => console.log(data))
+      .catch((error) => console.log(error));
+  };
+</script>
+<!-- <script src="/js/borrowBookDom.js"></script> -->
+<%- include('../partials/footer') %>
