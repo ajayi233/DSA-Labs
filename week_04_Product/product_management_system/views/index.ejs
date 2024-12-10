@@ -1,0 +1,29 @@
+<%- include('partials/header') %>
+<nav class="container">
+  <div class="app--name">
+    <h2>Spiral Clothing</h2>
+  </div>
+  <ul>
+    <li><a href="/login">Login</a></li>
+    <li><a href="/signup">Register</a></li>
+    <li>
+      <select name="category" id="">
+        <% categoryList.forEach(category => { %>
+        <a><option value="<%= category._id %>"><%= category.name %></option></a>
+        <% }); %>
+      </select>
+    </li>
+  </ul>
+</nav>
+<header class="container">
+  <div>
+    <h1>Welcome to Spiral Product Management System</h1>
+    <p>Discover the latest fashion trends.</p>
+    <div class="btns">
+      <button class="btn--ghost">Add an admin</button> &nbsp; &nbsp;
+      <button class="btn--full">Login &rarr;</button>
+    </div>
+  </div>
+</header>
+
+<%- include('partials/footer') %>
