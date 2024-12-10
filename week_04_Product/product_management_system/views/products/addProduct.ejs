@@ -1,45 +1,99 @@
 <%- include('../partials/header') %>
 
-<div>
-    <p>Add a product</p>
+<div class="container mx-auto mt-10 max-w-lg">
+  <h1 class="text-3xl font-bold text-amber-800 text-center mb-3">Add a Product</h1>
 
-    <form action="/products/addProduct" method="POST" enctype="multipart/form-data">
-        <label for="name">Name</label>
-        <input type="text" name="name" placeholder="Enter product name" required />
+  <form 
+    action="/products/addProduct" 
+    method="POST" 
+    enctype="multipart/form-data" 
+    class="bg-amber-600/80 p-6 rounded-lg shadow-lg"
+  >
+    <!-- Product Name -->
+    <div class="mb-4">
+      <label for="name" class="block text-sm font-bold text-white">Name</label>
+      <input 
+        type="text" 
+        name="name" 
+        placeholder="Enter product name" 
+        required 
+        class="w-full p-2 mt-2 text-sm rounded border focus:ring-2 focus:ring-amber-500 outline-none"
+      />
+    </div>
 
-        <br />
+    <!-- Description -->
+    <div class="mb-4">
+      <label for="description" class="block text-sm font-bold text-white">Description</label>
+      <input 
+        type="text" 
+        name="description" 
+        placeholder="Enter product description" 
+        required 
+        class="w-full p-2 mt-2 text-sm rounded border focus:ring-2 focus:ring-amber-500 outline-none"
+      />
+    </div>
 
-        <label for="description">Description</label>
-        <input type="text" name="description" placeholder="Enter product description" required />
+    <!-- Price -->
+    <div class="mb-4">
+      <label for="price" class="block text-sm font-bold text-white">Price</label>
+      <input 
+        type="number" 
+        name="price" 
+        placeholder="Enter product price" 
+        required 
+        class="w-full p-2 mt-2 text-sm rounded border focus:ring-2 focus:ring-amber-500 outline-none"
+      />
+    </div>
 
-        <br />
-        <label for="price">Price</label>
-        <input type="number" name="price" placeholder="Enter product price" required />
+    <!-- Quantity -->
+    <div class="mb-4">
+      <label for="quantity" class="block text-sm font-bold text-white">Quantity</label>
+      <input 
+        type="number" 
+        name="quantity" 
+        placeholder="Enter product quantity" 
+        required 
+        class="w-full p-2 mt-2 text-sm rounded border focus:ring-2 focus:ring-amber-500 outline-none"
+      />
+    </div>
 
-        <br />
-        
-        <label for="quantity">Quantity</label>
-        <input type="number" name="quantity" placeholder="Enter product quantity" required />
+    <!-- Image -->
+    <div class="mb-4">
+      <label for="image" class="block text-sm font-bold text-white">Image</label>
+      <input 
+        type="file" 
+        name="image" 
+        required 
+        class="w-full p-2 mt-2 text-sm rounded border focus:ring-2 focus:ring-amber-500 outline-none"
+      />
+    </div>
 
-        <br />
+    <!-- Category -->
+    <div class="mb-4">
+      <label for="category" class="block text-sm font-bold text-white">Category</label>
+      <select 
+        name="category" 
+        required 
+        class="w-full p-2 mt-2 text-sm rounded border bg-white focus:ring-2 focus:ring-amber-500 outline-none"
+      >
+        <% categoryList.forEach(category => { %>
+          <option value="<%= category._id %>">
+            <%= category.name %>
+          </option>
+        <% }); %>
+      </select>
+    </div>
 
-        <label for="image">Image</label>
-        <input type="file" name="image" required />
-
-        <br />
-        
-        <label for="category">Category</label>
-        <select name="category" required>
-            <% categoryList.forEach(category => { %>
-                <option value="<%= category._id %>">
-                    <%= category.name %>
-                </option>
-            <% }); %>
-            <!-- <option value="jewelery">Jewelery</option> -->
-        </select>
-        <br>
-
-        <button type="submit">Add product</button>
+    <!-- Submit Button -->
+    <div class="text-center">
+      <button 
+        type="submit" 
+        class="px-4 py-2 text-white bg-amber-700 hover:bg-amber-800 rounded-lg transition"
+      >
+        Add Product
+      </button>
+    </div>
+  </form>
 </div>
 
 <%- include('../partials/footer') %>

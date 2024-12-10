@@ -1,21 +1,24 @@
 <%- include('../partials/header') %>
-<div>
-  <p>Sign up</p>
+<div class="flex flex-col justify-center h-[100vh]">
+<div class="w-2/5 mx-auto border-2 border-slate-400 p-5 rounded-md">
+  <p class="text-2xl capitalize text-center font-semibold text-slate-700 mb-5">Sign up</p>
 
   <form action="/admin/signup" method="POST">
     <input type="text" name="name" placeholder="Enter your name" required />
     <br />
-    <input type="email" name="email" placeholder="Enter your email" required />
+    <input  class="mb-4 w-full border-[1.5px] border-gray-400 p-2 rounded-md" type="email" name="email" placeholder="Enter your email" required />
     <br />
     <input
+    class="w-full border-[1.5px] border-gray-400 p-2 rounded-md"
       type="password"
       name="password"
       placeholder="Enter your password"
       required
     />
     <br />
-    <button type="submit">Sign up</button>
+    <button class="my-4 w-full bg-amber-500 text-white p-2 rounded-md"  type="submit">Sign up</button>
   </form>
+</div>
 </div>
 
 <%- include('../partials/footer') %>

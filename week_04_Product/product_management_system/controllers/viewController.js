@@ -8,6 +8,19 @@ exports.indexPage = async (req, res) => {
   const categoryList = await getCategories();
   res.status(200).render("index", { categoryList });
 };
+
+exports.displayProductPage = async (req, res) => {
+  const id = req.params.category;
+  const productModel = mongoose.model("product");
+  const product = await productModel.aggregate([
+    {$lookup:{from : "categories", localField : "category", foreignField : "_id", as : "category"}},
+    {$unwind : "$category"},
+    {$match : {"category.name" : id}},
+    {$project : {_id: 1, name : 1, description : 1, price : 1, quantity : 1, imageUrl : 1}}
+  ]);
+  
+  res.status(200).render("../views/displayProduct.ejs" , { product });
+}
 //admin
 exports.adminPage = async (req, res) => {
   const products = await getProducts();

@@ -1,27 +1,23 @@
 <%- include('partials/header') %>
-<nav class="container">
+<nav class=" px-14 py-4 text-white flex items-center justify-between bg-amber-500/80">
   <div class="app--name">
-    <h2>Spiral Clothing</h2>
+    <h2 class="font-semibold text-3xl tracking-wider capitalize">Spiral Clothing</h2>
   </div>
-  <ul>
+  <ul class="flex items-center sapce-x-4 gap-5">
     <li><a href="/login">Login</a></li>
     <li><a href="/signup">Register</a></li>
-    <li>
-      <select name="category" id="">
-        <% categoryList.forEach(category => { %>
-        <a><option value="<%= category._id %>"><%= category.name %></option></a>
-        <% }); %>
-      </select>
-    </li>
   </ul>
 </nav>
-<header class="container">
+<header class="container" >
   <div>
-    <h1>Welcome to Spiral Product Management System</h1>
-    <p>Discover the latest fashion trends.</p>
-    <div class="btns">
-      <button class="btn--ghost">Add an admin</button> &nbsp; &nbsp;
-      <button class="btn--full">Login &rarr;</button>
+    <div class="flex flex-col items-center justify-center w-[80%] mx-auto h-[80vh]">
+      <h1 class="tracking-wider text-5xl text-center font-bold uppercase">Welcome to Spiral Product Management System</h1>
+      <p class="mt-5 ">Discover the latest fashion trends.</p>
+      <div class="py-3 flex items-center gap-3 mt-5 w-[90%] overflow-x-scroll">
+          <% categoryList.forEach(category => { %>
+          <button class="shadow-md w-[180px] h-[180px] bg-amber-500/80 rounded-lg  flex-shrink-0 font-xl text-white font-semibold"><a href="viewProducts/<%= category.name %>"><%= category.name %></a></button>
+          <% }); %>
+      </div>
     </div>
   </div>
 </header>

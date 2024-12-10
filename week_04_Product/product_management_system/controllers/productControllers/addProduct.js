@@ -28,7 +28,7 @@ exports.addProduct = async (req, res) => {
 
 exports.getProducts = async (req, res) => {
   const productModel = mongoose.model("product");
-  const products = await productModel.find();
+  const products = await productModel.find().populate("category");
 
   return products;
 };

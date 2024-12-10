@@ -21,7 +21,7 @@ exports.adminLogin = async (req, res) => {
     expiresIn: "1d",
   });
   req.session.token = token;
-  console.log(req.session);
+  // console.log(req.session);
 
   //routing to admin page
   res.status(200).redirect("/adminHome");
