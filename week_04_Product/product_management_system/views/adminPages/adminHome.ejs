@@ -1,0 +1,80 @@
+<%- include('../partials/header') %>
+<section class="min-h-[80vh]">
+<h1 class="text-3xl font-bold text-amber-800 text-center mt-5 mb-5">Admin Dashboard</h1>
+
+<div class="admin-nav flex justify-center gap-4 mb-5">
+  <li class="list-none">
+    <a 
+      href="/products/addProduct" 
+      class="text-white bg-amber-700 hover:bg-amber-800 px-4 py-2 rounded shadow-md transition"
+    >
+      Add a product
+    </a>
+  </li>
+  <li class="list-none">
+    <a 
+      href="/category" 
+      class="text-white bg-amber-700 hover:bg-amber-800 px-4 py-2 rounded shadow-md transition"
+    >
+      Add a category
+    </a>
+  </li>
+</div>
+
+<div class="container-fluid mt-5 mb-5">
+  <table id="DT" class="w-full border-collapse border border-amber-600 shadow-md rounded">
+    <thead class="bg-amber-600/20">
+      <tr>
+        <th class="text-center border border-amber-600 p-3 text-sm font-bold text-amber-800">Name</th>
+        <th class="text-center border border-amber-600 p-3 text-sm font-bold text-amber-800">Description</th>
+        <th class="text-center border border-amber-600 p-3 text-sm font-bold text-amber-800">Price</th>
+        <th class="text-center border border-amber-600 p-3 text-sm font-bold text-amber-800">Quantity</th>
+        <th class="text-center border border-amber-600 p-3 text-sm font-bold text-amber-800">Image</th>
+        <th class="text-center border border-amber-600 p-3 text-sm font-bold text-amber-800">Category</th>
+        <th class="text-center border border-amber-600 p-3 text-sm font-bold text-amber-800">Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% products.forEach(product => { %>
+        <tr class="even:bg-amber-50 odd:bg-white">
+          <td class="align-middle text-center border border-amber-600 p-2 text-amber-800"><%= product.name %></td>
+          <td class="align-middle text-center border border-amber-600 p-2 text-amber-800"><%= product.description %></td>
+          <td class="align-middle text-center border border-amber-600 p-2 text-amber-800"><%= product.price %></td>
+          <td class="align-middle text-center border border-amber-600 p-2 text-amber-800"><%= product.quantity %></td>
+          <td class="align-middle text-center border border-amber-600 p-2">
+            <img
+              class="rounded shadow-md"
+              style="width: 100px; height: 100px;" 
+              src="/uploads/<%= product.imageUrl %>"
+              alt="<%= product.name %>"
+            />
+          </td>
+          <td class="align-middle text-center border border-amber-600 p-2 text-amber-800"><%= product.category.name %></td>
+          <td class="align-middle text-center border border-amber-600 p-2">
+            <a
+              href="/products/updateProduct/<%= product._id %>"
+              class="text-white bg-blue-500 hover:bg-blue-600 px-3 py-1 rounded shadow-md transition inline-block"
+            >
+              Update
+            </a>
+            <a
+              href="/products/deleteProduct/<%= product._id %>"
+              class="text-white bg-red-500 hover:bg-red-600 px-3 py-1 rounded shadow-md transition inline-block"
+            >
+              Delete
+            </a>
+          </td>
+        </tr>
+      <% }); %>
+    </tbody>
+
+
+
+  </table>
+
+
+
+</div>
+</div>
+</section>
+<%- include('../partials/footer') %>
