@@ -15,6 +15,11 @@ const instructorSchema = new mongoose.Schema(
       required: [true, "Please enter an email address"],
       unique: true,
     },
+    InstructorID: {
+      type: String,
+      required: true,
+      unique: true,
+    },
     dateOfBirth: {
       type: Date,
       required: true,
@@ -35,7 +40,6 @@ const instructorSchema = new mongoose.Schema(
       {
         type: mongoose.SchemaTypes.ObjectId,
         ref: "course",
-        required: true,
       },
     ],
     department: {
@@ -48,4 +52,6 @@ const instructorSchema = new mongoose.Schema(
   }
 );
 
-module.exports = mongoose.model("instructor", instructorSchema);
+const Instructor = mongoose.model("instructor", instructorSchema);
+
+module.exports = Instructor;

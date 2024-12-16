@@ -10,6 +10,16 @@ const studentSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    studentID: {
+      type: String,
+      required: true,
+      unique: true,
+    },
+    role: {
+      type: String,
+      enum: ["student", "instructor"],
+      default: "student",
+    },
     dateOfBirth: {
       type: Date,
       required: true,
@@ -29,11 +39,11 @@ const studentSchema = new mongoose.Schema(
     },
     gender: {
       type: String,
+      enum: ["male", "female"],
       required: true,
     },
     enrollmentDate: {
       type: Date,
-      required: true,
     },
     coursesEnrolled: [
       {
@@ -47,4 +57,6 @@ const studentSchema = new mongoose.Schema(
   }
 );
 
-module.exports = mongoose.model("student", studentSchema);
+const Student = mongoose.model("student", studentSchema);
+
+module.exports = Student;
