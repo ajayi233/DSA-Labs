@@ -78,7 +78,7 @@ exports.instructorLogin = async (req, res) => {
 
 //password reset
 exports.resetPassword = async (req, res) => {
-  console.log(req.headers);
+  console.log(req.user);
   const { email } = req.body;
 
   //validation

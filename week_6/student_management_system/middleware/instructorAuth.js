@@ -11,6 +11,7 @@ const instructorAuth = (req, res, next) => {
     });
     return;
   }
+  req.user = accessBadge;
   next();
 };
 module.exports = instructorAuth;

@@ -12,6 +12,7 @@ const studentAuth = (req, res, next) => {
     });
     return;
   }
+  req.user = accessBadge;
   next();
 };
 
