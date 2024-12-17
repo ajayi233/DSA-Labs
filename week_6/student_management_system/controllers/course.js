@@ -1,23 +1,32 @@
 const Course = require("../model/course");
+const Instructor = require("../model/instructor");
 
 //create a new course
 exports.addCourse = async (req, res) => {
-  const { name, code, description, credits, instructor, duration } = req.body;
+  const { name, code, description, credits, instructorID, duration } = req.body;
 
   //validation
   if (!name) throw "Course name is required...";
   if (!code) throw "Course code is required...";
   if (!description) throw "Course description is required...";
   if (!credits) throw "Course credits is required...";
-  if (!instructor) throw "Course instructor is required...";
+  if (!instructorID) throw "Course instructor is required...";
   if (!duration) throw "Course duration is required...";
 
+  /*
+    fetch instructor by id
+    const getInstructor = await Instructor.findOne({ _id: instructorID });
+    if (!getInstructor) throw "Instructor not found...";
+    const instructorID = getInstructor._id;
+  */
+
+  //creating course
   const newCourse = await Course.create({
     name,
     code,
     description,
     credits,
-    instructor,
+    instructorID,
     duration,
   });
   res.status(200).json({

@@ -1,4 +1,5 @@
 const Student = require("../model/student");
+const bcrypt = require("bcryptjs");
 
 // register student
 exports.registerStudent = async (req, res) => {
@@ -7,6 +8,7 @@ exports.registerStudent = async (req, res) => {
     lastName,
     dateOfBirth,
     email,
+    password,
     phone,
     address,
     gender,
@@ -19,6 +21,7 @@ exports.registerStudent = async (req, res) => {
     !lastName ||
     !dateOfBirth ||
     !email ||
+    !password ||
     !phone ||
     !address ||
     !gender ||
@@ -30,6 +33,10 @@ exports.registerStudent = async (req, res) => {
     });
   }
 
+  //email validation
+  const getDuplicateEmail = await Student.findOne({ email: email });
+  if (getDuplicateEmail) throw "Email already exists...";
+
   //student ID
   const generateRandomId = () => {
     const prefix = "STD";
@@ -39,12 +46,16 @@ exports.registerStudent = async (req, res) => {
 
   const studentID = generateRandomId();
 
+  //password
+  const hashedPassword = await bcrypt.hash(password, Number(process.env.SALT));
+
   const student = await Student.create({
     firstName,
     lastName,
     studentID,
     dateOfBirth,
     email,
+    password: hashedPassword,
     phone,
     address,
     gender,
@@ -107,6 +118,7 @@ exports.updateStudentById = async (req, res) => {
     role,
     dateOfBirth,
     email,
+    password,
     phone,
     address,
     gender,
@@ -120,6 +132,7 @@ exports.updateStudentById = async (req, res) => {
     !lastName ||
     !dateOfBirth ||
     !email ||
+    !password ||
     !phone ||
     !address ||
     !gender ||
@@ -131,6 +144,12 @@ exports.updateStudentById = async (req, res) => {
     });
   }
 
+  //email validation
+  const getDuplicateEmail = await Student.findOne({ email: email });
+  if (getDuplicateEmail) throw "Email already exists...";
+
+  //password
+  const hashedPassword = await bcrypt.hash(password, Number(process.env.SALT));
   const student = await Student.findOneAndUpdate(
     { studentID: id },
     {
@@ -140,6 +159,7 @@ exports.updateStudentById = async (req, res) => {
       role,
       dateOfBirth,
       email,
+      password: hashedPassword,
       phone,
       address,
       gender,

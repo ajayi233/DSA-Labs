@@ -29,6 +29,10 @@ const studentSchema = new mongoose.Schema(
       required: [true, "Please enter an email address"],
       unique: true,
     },
+    password: {
+      type: String,
+      required: [true, "Please enter a password"],
+    },
     phone: {
       type: String,
       required: true,

@@ -7,6 +7,7 @@ const studentRouter = require("./routes/student");
 const courseRouter = require("./routes/course");
 const enrollmentRouter = require("./routes/enrollment");
 const instructorRouter = require("./routes/instructor");
+const authRouter = require("./routes/auth");
 
 const app = express();
 
@@ -26,6 +27,7 @@ app.use("/students", studentRouter);
 app.use("/courses", courseRouter);
 app.use("/enrollments", enrollmentRouter);
 app.use("/instructors", instructorRouter);
+app.use("/auth", authRouter);
 
 //404
 app.get("*", (req, res) => {
@@ -46,7 +48,7 @@ mongoose
   .then(() => {
     console.log("...........Database connected successfully...........");
     app.listen(3000, () => {
-      console.log(`Application is live on http://localhost:${PORT}`);
+      console.log(`API is live on http://localhost:${PORT}`);
     });
   })
   .catch((err) => {

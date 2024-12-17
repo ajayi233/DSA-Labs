@@ -1,4 +1,5 @@
 const Instructor = require("../model/instructor");
+const bcrypt = require("bcryptjs");
 
 //add new instructor
 exports.addInstructor = async (req, res) => {
@@ -6,6 +7,7 @@ exports.addInstructor = async (req, res) => {
     firstName,
     lastName,
     email,
+    password,
     dateOfBirth,
     phone,
     address,
@@ -17,11 +19,16 @@ exports.addInstructor = async (req, res) => {
   if (!firstName) throw "Instructor first name is required...";
   if (!lastName) throw "Instructor last name is required...";
   if (!email) throw "Instructor email is required...";
+  if (!password) throw "Instructor password is required...";
   if (!dateOfBirth) throw "Instructor date of birth is required...";
   if (!phone) throw "Instructor phone is required...";
   if (!address) throw "Instructor address is required...";
   if (!hireDate) throw "Instructor hire date is required...";
   if (!department) throw "Instructor department is required...";
+
+  //email validation
+  const getDuplicateEmail = await Instructor.findOne({ email: email });
+  if (getDuplicateEmail) throw "Email already exists...";
 
   const generateRandomId = () => {
     const prefix = "INSTR";
@@ -30,12 +37,16 @@ exports.addInstructor = async (req, res) => {
   };
 
   const instructorID = generateRandomId();
-  console.log(instructorID);
+  // console.log(instructorID);
+
+  //password encryption
+  const hashedPassword = await bcrypt.hash(password, Number(process.env.SALT));
 
   const newInstructor = await Instructor.create({
     firstName,
     lastName,
     email,
+    password: hashedPassword,
     InstructorID: instructorID,
     dateOfBirth,
     phone,
@@ -103,6 +114,7 @@ exports.updateInstructorById = async (req, res) => {
     firstName,
     lastName,
     email,
+    password,
     dateOfBirth,
     phone,
     address,
@@ -115,6 +127,7 @@ exports.updateInstructorById = async (req, res) => {
     !firstName ||
     !lastName ||
     !email ||
+    !password ||
     !dateOfBirth ||
     !phone ||
     !address ||
@@ -127,12 +140,17 @@ exports.updateInstructorById = async (req, res) => {
     });
   }
 
+  //password encryption
+  const hashedPassword = await bcrypt.hash(password, Number(process.env.SALT));
+
+  //update instructor
   const instructor = await Instructor.findOneAndUpdate(
     { InstructorID: id },
     {
       firstName,
       lastName,
       email,
+      password: hashedPassword,
       dateOfBirth,
       phone,
       address,

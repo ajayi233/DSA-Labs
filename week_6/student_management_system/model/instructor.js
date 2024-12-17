@@ -15,6 +15,10 @@ const instructorSchema = new mongoose.Schema(
       required: [true, "Please enter an email address"],
       unique: true,
     },
+    password: {
+      type: String,
+      required: [true, "Please enter a password"],
+    },
     InstructorID: {
       type: String,
       required: true,

@@ -16,11 +16,6 @@ const enrollmentSchema = new mongoose.Schema(
       type: Date,
       required: true,
     },
-    status: {
-      type: String,
-      enum: ["pending", "approved", "rejected"],
-      default: "pending",
-    },
   },
   {
     timestamps: true,
