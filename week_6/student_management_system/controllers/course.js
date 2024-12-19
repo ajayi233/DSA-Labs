@@ -1,8 +1,14 @@
 const Course = require("../model/course");
 const Instructor = require("../model/instructor");
+const logger = require("../utils/logger");
 
 //create a new course
 exports.addCourse = async (req, res) => {
+  logger.info({
+    message: "Creating a new course",
+    url: req.url,
+    method: req.method,
+  });
   const { name, code, description, credits, instructorID, duration } = req.body;
 
   //validation
@@ -13,12 +19,11 @@ exports.addCourse = async (req, res) => {
   if (!instructorID) throw "Course instructor is required...";
   if (!duration) throw "Course duration is required...";
 
-  /*
-    fetch instructor by id
-    const getInstructor = await Instructor.findOne({ _id: instructorID });
-    if (!getInstructor) throw "Instructor not found...";
-    const instructorID = getInstructor._id;
-  */
+  const getInstructor = await Instructor.findOne({
+    InstructorID: instructorID,
+  });
+  if (!getInstructor) throw "Instructor not found...";
+  const InstructorID = getInstructor._id;
 
   //creating course
   const newCourse = await Course.create({
@@ -26,13 +31,14 @@ exports.addCourse = async (req, res) => {
     code,
     description,
     credits,
-    instructorID,
+    instructorID: InstructorID,
     duration,
   });
+
   res.status(200).json({
     status: "success",
     data: {
-      course: newCourse,
+      newCourse,
     },
     message: "Course created successfully",
   });
@@ -40,6 +46,11 @@ exports.addCourse = async (req, res) => {
 
 //get all courses
 exports.getAllCourses = async (req, res) => {
+  logger.info({
+    message: "Getting all courses",
+    url: req.url,
+    method: req.method,
+  });
   const courses = await Course.find();
 
   //validation
@@ -61,6 +72,12 @@ exports.getAllCourses = async (req, res) => {
 
 //get course by id
 exports.getCourseById = async (req, res) => {
+  logger.info({
+    message: "Getting a course",
+    url: req.url,
+    method: req.method,
+  });
+
   const id = req.params.id;
   const course = await Course.findOne({ code: id });
 
@@ -84,16 +101,17 @@ exports.getCourseById = async (req, res) => {
 //update course by id
 exports.updateCourseById = async (req, res) => {
   const id = req.params.id;
-  const { name, code, description, credits, instructor, duration } = req.body;
+  const { name, code, description, credits, instructorID, duration } = req.body;
 
   //validation
   if (!name) throw "Course name is required...";
   if (!code) throw "Course code is required...";
   if (!description) throw "Course description is required...";
   if (!credits) throw "Course credits is required...";
-  if (!instructor) throw "Course instructor is required...";
+  if (!instructorID) throw "Course instructor is required...";
   if (!duration) throw "Course duration is required...";
 
+  await Instructor.findOne({ instructorID: instructorID });
   const course = await Course.findOneAndUpdate(
     { code: id },
     {
@@ -101,7 +119,7 @@ exports.updateCourseById = async (req, res) => {
       code,
       description,
       credits,
-      instructor,
+      instructor: Instructor._id,
       duration,
     }
   );
@@ -125,6 +143,11 @@ exports.updateCourseById = async (req, res) => {
 
 //delete course by id
 exports.deleteCourseById = async (req, res) => {
+  logger.info({
+    message: "Creating a new course",
+    url: req.url,
+    method: req.method,
+  });
   const id = req.params.id;
   const course = await Course.findOneAndDelete({ code: id });
 

@@ -1,0 +1,20 @@
+{"level":"error","message":"Cannot read properties of undefined (reading 'push')","method":"POST","service":"student-management-system","url":"/enrollments/add"}
+{"level":"error","message":"Cast to string failed for value \"{\n  id: '675ff28731cd8b02df10176a',\n  studentID: 'STD6486208',\n  role: 'student',\n  iat: 1734513866,\n  exp: 1734600266\n}\" (type Object) at path \"studentID\" for model \"student\"","method":"POST","service":"student-management-system","url":"/enrollments/self-enroll"}
+{"level":"error","message":"Cast to string failed for value \"{\n  id: '675ff28731cd8b02df10176a',\n  studentID: 'STD6486208',\n  role: 'student',\n  iat: 1734513866,\n  exp: 1734600266\n}\" (type Object) at path \"studentID\" for model \"student\"","method":"POST","service":"student-management-system","url":"/enrollments/self-enroll"}
+{"level":"error","message":"Cast to string failed for value \"{\n  id: '675ff28731cd8b02df10176a',\n  studentID: 'STD6486208',\n  role: 'student',\n  iat: 1734513866,\n  exp: 1734600266\n}\" (type Object) at path \"studentID\" for model \"student\"","method":"POST","service":"student-management-system","url":"/enrollments/self-enroll"}
+{"level":"error","message":"Cast to string failed for value \"{\n  id: '675ff28731cd8b02df10176a',\n  studentID: 'STD6486208',\n  role: 'student',\n  iat: 1734513866,\n  exp: 1734600266\n}\" (type Object) at path \"studentID\" for model \"student\"","method":"POST","service":"student-management-system","url":"/enrollments/self-enroll"}
+{"level":"error","message":"Cast to string failed for value \"{\n  id: '675ff28731cd8b02df10176a',\n  studentID: 'STD6486208',\n  role: 'student',\n  iat: 1734513866,\n  exp: 1734600266\n}\" (type Object) at path \"studentID\" for model \"student\"","method":"POST","service":"student-management-system","url":"/enrollments/self-enroll"}
+{"level":"error","message":"courses is not defined","method":"GET","service":"student-management-system","url":"/enrollments/student/STD6486208"}
+{"level":"error","message":"courses is not defined","method":"GET","service":"student-management-system","url":"/enrollments/student/STD6486208"}
+{"level":"error","message":"courses is not defined","method":"GET","service":"student-management-system","url":"/enrollments/student/STD6486208"}
+{"level":"error","message":"courses is not defined","method":"GET","service":"student-management-system","url":"/enrollments/student/STD6486208"}
+{"level":"error","message":"courses is not defined","method":"GET","service":"student-management-system","url":"/enrollments/student/STD6486208"}
+{"level":"error","message":"getStudent.coursesEnrolled[0].includes is not a function","method":"POST","service":"student-management-system","url":"/enrollments/self-enroll"}
+{"level":"error","message":"getStudent.coursesEnrolled[0].includes is not a function","method":"POST","service":"student-management-system","url":"/enrollments/self-enroll"}
+{"level":"error","message":{"method":"POST","url":"/enrollments/self-enroll"},"service":"student-management-system"}
+{"level":"error","message":{"method":"POST","url":"/enrollments/self-enroll"},"service":"student-management-system"}
+{"level":"error","message":{"method":"POST","url":"/enrollments/self-enroll"},"service":"student-management-system"}
+{"level":"error","message":{"method":"POST","url":"/enrollments/self-enroll"},"service":"student-management-system"}
+{"level":"error","message":"Cannot read properties of undefined (reading 'split')","method":"GET","service":"student-management-system","url":"/enrollments/course/CS101"}
+{"level":"error","message":"Cannot read properties of undefined (reading 'split')","method":"GET","service":"student-management-system","url":"/courses"}
+{"level":"error","message":"courses is not defined","method":"GET","service":"student-management-system","url":"/enrollments/student/STD6486208"}

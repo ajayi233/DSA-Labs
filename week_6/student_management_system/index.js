@@ -8,6 +8,9 @@ const courseRouter = require("./routes/course");
 const enrollmentRouter = require("./routes/enrollment");
 const instructorRouter = require("./routes/instructor");
 const authRouter = require("./routes/auth");
+const sortRouter = require("./routes/sort");
+const swaggerUI = require("swagger-ui-express");
+const swaggerSpec = require("./swagger/swagger");
 
 const app = express();
 
@@ -23,11 +26,13 @@ app.get("/", (req, res) => {
   });
 });
 //various entities routes
+app.use("/api-docs", swaggerUI.serve, swaggerUI.setup(swaggerSpec));
 app.use("/students", studentRouter);
 app.use("/courses", courseRouter);
 app.use("/enrollments", enrollmentRouter);
 app.use("/instructors", instructorRouter);
 app.use("/auth", authRouter);
+app.use("/sort", sortRouter);
 
 //404
 app.get("*", (req, res) => {

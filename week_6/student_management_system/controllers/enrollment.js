@@ -15,12 +15,13 @@ exports.addEnrollment = async (req, res) => {
 
   if (!getCourse || !getStudent) throw "Error in getting student or course...";
 
+  console.log(getStudent);
   const newEnrollment = await Enrollment.create({
     student: getStudent._id,
     course: getCourse._id,
   });
 
-  getStudent.enrollments.push(newEnrollment._id);
+  getStudent.coursesEnrolled.push(newEnrollment._id);
   await getStudent.save();
 
   res.status(200).json({
@@ -28,6 +29,42 @@ exports.addEnrollment = async (req, res) => {
     data: newEnrollment,
     message: "Student enrolled successfully",
   });
+};
+
+//student self enroll to course
+exports.selfEnroll = async (req, res) => {
+  const { courseCode } = req.body;
+  const studentID = req.user;
+
+  //validation
+  const getStudent = await Student.findOne({ studentID: studentID.studentID });
+  const getCourse = await Course.findOne({ code: courseCode });
+
+  if (!getCourse || !getStudent) throw "Error in getting student or course";
+  const similarEnrollment = await Enrollment.findOne({
+    student: getStudent._id,
+    course: getCourse._id,
+  });
+  if (similarEnrollment) {
+    res.status(400).json({
+      success: false,
+      error: "You have already been enrolled to this course",
+    });
+  } else {
+    const newEnrollment = await Enrollment.create({
+      student: getStudent.id,
+      course: getCourse._id,
+    });
+
+    getStudent.coursesEnrolled.push(newEnrollment._id);
+    await getStudent.save();
+
+    res.status(200).json({
+      success: true,
+      data: newEnrollment,
+      message: `You have successfully enrolled to ${getCourse.code}`,
+    });
+  }
 };
 
 //get all enrollments of a student
@@ -54,20 +91,19 @@ exports.getAllEnrollments = async (req, res) => {
   try {
     const courses = [];
     courses.push(getCourses[0].code);
+    res.status(200).json({
+      status: "success",
+      data: {
+        courses,
+      },
+      message: `Enrollments for ${getStudent.firstName} ${getStudent.lastName} found successfully`,
+    });
   } catch (err) {
     return res.status(404).json({
       status: "fail",
       error: "No enrollments found",
     });
   }
-
-  res.status(200).json({
-    status: "success",
-    data: {
-      courses,
-    },
-    message: `Enrollments for ${getStudent.firstName} ${getStudent.lastName} found successfully`,
-  });
 };
 
 //get all students enrolled in a course

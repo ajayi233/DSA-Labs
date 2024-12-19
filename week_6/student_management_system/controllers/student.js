@@ -70,7 +70,13 @@ exports.registerStudent = async (req, res) => {
 
 // get all students
 exports.getAllStudents = async (req, res) => {
-  const students = await Student.find();
+    //pagination
+    const limit = 5;
+    const page = Number(req.query.page) || 1;
+  
+    const startIndex = (page - 1) * limit;
+
+  const students = await Student.find().skip(startIndex).limit(limit);
 
   //validation
   if (!students) {
@@ -80,8 +86,10 @@ exports.getAllStudents = async (req, res) => {
     });
   }
 
+
   res.status(200).json({
     success: true,
+    totalResult: students.length,
     data: students,
     message: "Students found successfully",
   });
