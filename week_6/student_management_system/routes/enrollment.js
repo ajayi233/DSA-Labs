@@ -8,6 +8,7 @@ const {
 } = require("../controllers/enrollment");
 const instructorAuth = require("../middleware/instructorAuth");
 const studentAuth = require("../middleware/studentAuth");
+const cache = require("../middleware/cache");
 const enrollmentRouter = express.Router();
 
 /**
@@ -85,7 +86,12 @@ enrollmentRouter.post("/self-enroll", studentAuth, selfEnroll);
  *         description: Internal server error
  */
 
-enrollmentRouter.get("/student/:id", instructorAuth, getAllEnrollments);
+enrollmentRouter.get(
+  "/student/:id",
+  instructorAuth,
+  cache(3000),
+  getAllEnrollments
+);
 
 /**
  * @swagger
@@ -109,7 +115,12 @@ enrollmentRouter.get("/student/:id", instructorAuth, getAllEnrollments);
  *         description: Internal server error
  */
 
-enrollmentRouter.get("/course/:id", instructorAuth, getAllEnrolledStudents);
+enrollmentRouter.get(
+  "/course/:id",
+  instructorAuth,
+  cache(3000),
+  getAllEnrolledStudents
+);
 
 /**
  * @swagger

@@ -66,7 +66,7 @@ exports.addInstructor = async (req, res) => {
 
 //get all instructors
 exports.getAllInstructors = async (req, res) => {
-  const instructors = await Instructor.find();
+  const instructors = await Instructor.find(req.query);
 
   //validation
   if (!instructors) {

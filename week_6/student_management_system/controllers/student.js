@@ -1,5 +1,7 @@
 const Student = require("../model/student");
 const bcrypt = require("bcryptjs");
+const redis = require("../utils/redis");
+
 
 // register student
 exports.registerStudent = async (req, res) => {
@@ -70,11 +72,11 @@ exports.registerStudent = async (req, res) => {
 
 // get all students
 exports.getAllStudents = async (req, res) => {
-    //pagination
-    const limit = 5;
-    const page = Number(req.query.page) || 1;
-  
-    const startIndex = (page - 1) * limit;
+  //pagination
+  const limit = 5;
+  const page = Number(req.query.page) || 1;
+
+  const startIndex = (page - 1) * limit;
 
   const students = await Student.find().skip(startIndex).limit(limit);
 
@@ -85,7 +87,6 @@ exports.getAllStudents = async (req, res) => {
       error: "No student found",
     });
   }
-
 
   res.status(200).json({
     success: true,
@@ -179,6 +180,65 @@ exports.updateStudentById = async (req, res) => {
     success: true,
     data: student,
     message: "Student updated successfully",
+  });
+};
+
+//student self update
+exports.studentSelfUpdate = async (req, res) => {
+  const studentID = req.user.studentID;
+  const {
+    firstName,
+    lastName,
+    dateOfBirth,
+    email,
+    password,
+    phone,
+    address,
+    gender,
+    coursesEnrolled,
+  } = req.body;
+
+  //validation
+  if (
+    !firstName ||
+    !lastName ||
+    !dateOfBirth ||
+    !email ||
+    !password ||
+    !phone ||
+    !address ||
+    !gender
+  ) {
+    return res.status(400).json({
+      success: false,
+      error: "Please fill all the fields",
+    });
+  }
+
+  //finding student
+  const student = await Student.findOneAndUpdate(
+    { studentID: studentID },
+    {
+      firstName,
+      lastName,
+      dateOfBirth,
+      email,
+      password,
+      phone,
+      address,
+      gender,
+      coursesEnrolled,
+    }
+  );
+
+  res.status(200).json({
+    success: true,
+    data: student,
+    message: "Student updated successfully",
+  });
+  res.status(400).json({
+    success: false,
+    error: "Error in updating student",
   });
 };
 

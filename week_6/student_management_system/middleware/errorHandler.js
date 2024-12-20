@@ -8,6 +8,7 @@ exports.errorHandler = (error, req, res, next) => {
   if (error) {
     res.status(400).json({
       success: false,
+      stack: error.stack,
       error: error.message ? error.message : error,
     });
   }

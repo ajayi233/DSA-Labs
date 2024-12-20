@@ -78,18 +78,33 @@ exports.instructorLogin = async (req, res) => {
 
 //password reset
 exports.resetPassword = async (req, res) => {
-  console.log(req.user);
-  const { email } = req.body;
+  const { password, newPassword } = req.body;
 
   //validation
-  if (!email) throw "Email must be provided...";
+  if (!password) throw "Password must be provided";
+  if (!newPassword) throw "New password must be provided";
+  if (password !== newPassword) throw "Password does not match";
 
-  const getInstructor = await Instructor.findOne({ email: email });
-  if (!getInstructor) throw "Email does not exist...";
+  const person = req.user.id;
 
-  const getStudent = await Student.findOne({ email: email });
-  if (!getStudent) throw "Email does not exist...";
+  if (!person) {
+    return res.status(400).json({
+      status: "fail",
+      message: "User not found",
+    });
+  }
 
-  const token = Math.random() * 1000000;
-  console.log(token);
+  const hashedPassword = await bcrypt.hash(password, Number(process.env.SALT));
+
+  await Student.findByIdAndUpdate(person, {
+    password: hashedPassword,
+  });
+  await Instructor.findByIdAndUpdate(person, {
+    password: hashedPassword,
+  });
+
+  res.status(200).json({
+    status: "success",
+    message: "Password reset successfully",
+  });
 };

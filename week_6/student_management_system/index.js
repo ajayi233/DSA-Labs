@@ -11,8 +11,12 @@ const authRouter = require("./routes/auth");
 const sortRouter = require("./routes/sort");
 const swaggerUI = require("swagger-ui-express");
 const swaggerSpec = require("./swagger/swagger");
+const {connectRedis} = require("./utils/redis");
 
 const app = express();
+
+
+connectRedis(); //connecting to redis
 
 //adding middleware
 app.use(express.json());

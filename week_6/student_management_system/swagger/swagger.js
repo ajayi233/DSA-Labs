@@ -3,12 +3,14 @@ const student = require("./studentSchema");
 const course = require("./courseSchema");
 const enrollment = require("./enrollmentSchema");
 const instructor = require("./instructorSchema");
+const auth = require("./authSchema");
 
 const schemas = {
   ...student,
   ...course,
   ...enrollment,
   ...instructor,
+  ...auth,
 };
 const options = {
   definition: {
@@ -25,7 +27,19 @@ const options = {
     ],
     components: {
       schemas,
+      securitySchemes: {
+        bearerAuth: {
+          type: "http",
+          scheme: "bearer",
+          bearerFormat: "JWT",
+        },
+      },
     },
+    security: [
+      {
+        bearerAuth: [],
+      },
+    ],
   },
   apis: ["./routes/*.js"],
 };

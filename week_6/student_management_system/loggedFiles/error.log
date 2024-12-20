@@ -18,3 +18,16 @@
 {"level":"error","message":"Cannot read properties of undefined (reading 'split')","method":"GET","service":"student-management-system","url":"/enrollments/course/CS101"}
 {"level":"error","message":"Cannot read properties of undefined (reading 'split')","method":"GET","service":"student-management-system","url":"/courses"}
 {"level":"error","message":"courses is not defined","method":"GET","service":"student-management-system","url":"/enrollments/student/STD6486208"}
+{"level":"error","message":"Cannot set headers after they are sent to the client","method":"PUT","service":"student-management-system","url":"/students/self-update"}
+{"level":"error","message":{"method":"POST","url":"/auth/instructor/login"},"service":"student-management-system"}
+{"level":"error","message":{"method":"POST","url":"/auth/instructor/login"},"service":"student-management-system"}
+{"level":"error","message":"Unexpected token 'G', \"GET /sort/\"... is not valid JSON","method":"GET","service":"student-management-system","url":"/sort/courses?sortBy=name&order=asc"}
+{"level":"error","message":"jwt expired","method":"GET","service":"student-management-system","url":"/instructors?firstName=daniel"}
+{"level":"error","message":"email is not defined","method":"POST","service":"student-management-system","url":"/auth/password-reset"}
+{"level":"error","message":"Illegal arguments: string, undefined","method":"POST","service":"student-management-system","url":"/auth/password-reset"}
+{"level":"error","message":"Illegal arguments: string, undefined","method":"POST","service":"student-management-system","url":"/auth/password-reset"}
+{"level":"error","message":"Cast to ObjectId failed for value \"{ person: '6761a40ca423abc423627445' }\" (type Object) at path \"_id\" for model \"student\"","method":"POST","service":"student-management-system","url":"/auth/password-reset"}
+{"level":"error","message":{"method":"POST","url":"/auth/password-reset"},"service":"student-management-system"}
+{"level":"error","message":"Illegal arguments: string, undefined","method":"POST","service":"student-management-system","url":"/auth/password-reset"}
+{"level":"error","message":"Illegal arguments: string, undefined","method":"POST","service":"student-management-system","url":"/auth/password-reset"}
+{"level":"error","message":"Illegal arguments: string, undefined","method":"POST","service":"student-management-system","url":"/auth/password-reset"}

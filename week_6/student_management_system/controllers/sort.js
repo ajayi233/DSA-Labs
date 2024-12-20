@@ -1,26 +1,40 @@
 const Student = require("../model/student");
+const Course = require("../model/course");
+const quickSort = require("../sortingAlg/sortStudent");
+const {quickSortCourse} = require("../sortingAlg/sortCourse");
 
-function quickSort(array, key) {
-  if (array.length <= 1) {
-    return array;
+exports.sortStudents = async (req, res) => {
+  try {
+    const { sortBy = "lastName", order = "asc" } = req.query;
+
+    // Fetch all students
+    const students = await Student.find();
+
+    const sortedStudents = quickSort(students, sortBy, order);
+
+    res.json(sortedStudents);
+  } catch (error) {
+    res
+      .status(500)
+      .json({ error: "Something went wrong while sorting students." });
   }
-
-  const pivot = array[array.length - 1];
-  const left = [];
-  const right = [];
-
-  for (let i = 0; i < array.length - 1; i++) {
-    if (array[i][key] < pivot[key]) {
-      left.push(array[i]);
-    } else {
-      right.push(array[i]);
-    }
-  }
-
-  return [...quickSort(left, key), pivot, ...quickSort(right, key)];
-}
-
-exports.sortStudents = async (req, res) => {};
+};
 
 //sort courses
-exports.sortCourses = async (req, res) => {};
+exports.sortCourses = async (req, res) => { 
+  try {
+    const { sortBy = "code", order = "asc" } = req.query;
+
+    // Fetch all courses from the database
+    const courses = await Course.find();
+
+    // Apply QuickSort based on the selected criteria and order
+    const sortedCourses = quickSortCourse(courses, sortBy, order);
+
+    res.json(sortedCourses);
+  } catch (error) {
+    res
+      .status(500)
+      .json({ error: "Something went wrong while sorting courses." });
+  }
+};

@@ -5,13 +5,14 @@ const {
   getStudentById,
   updateStudentById,
   deleteStudentById,
+  studentSelfUpdate,
 } = require("../controllers/student");
 const studentAuth = require("../middleware/studentAuth");
 const instructorAuth = require("../middleware/instructorAuth");
+const cache = require("../middleware/cache");
 const studentRouter = express.Router();
 
 //routes for student CRUD
-
 
 /**
  * @swagger
@@ -53,7 +54,7 @@ studentRouter.post("/register", instructorAuth, registerStudent);
  *       401:
  *         description: Unauthorized access
  */
-studentRouter.get("/", instructorAuth, getAllStudents);
+studentRouter.get("/", instructorAuth,  cache(3000),getAllStudents);
 
 /**
  * @swagger
@@ -138,11 +139,31 @@ studentRouter.get("/:id", studentAuth, getStudentById);
  *       401:
  *         description: Unauthorized access
  */
-studentRouter.put(
-  "/update/:id",
-  studentAuth,
-  instructorAuth,
-  updateStudentById
-);
+studentRouter.put("/update/:id", instructorAuth, updateStudentById);
+
+/**
+ * @swagger
+ * /student/self-update:
+ *   put:
+ *     summary: Update a student's own information
+ *     tags: [student]
+ *     security:
+ *       - bearerAuth: []
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/Student'
+ *     responses:
+ *       200:
+ *         description: Student updated successfully
+ *       401:
+ *         description: Unauthorized access
+ *       500:
+ *         description: Internal server error
+ */
+
+studentRouter.put("/self-update", studentAuth, studentSelfUpdate);
 
 module.exports = studentRouter;
