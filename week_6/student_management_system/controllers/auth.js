@@ -37,7 +37,7 @@ exports.studentLogin = async (req, res) => {
     data: {
       accessToken,
     },
-    message: "Login successful...",
+    message: "Login successful",
   });
 };
 
@@ -46,14 +46,14 @@ exports.instructorLogin = async (req, res) => {
   const { email, password } = req.body;
 
   //validation
-  if (!email) throw "Email must be provided...";
-  if (!password) throw "Password must be provided...";
+  if (!email) throw "Email must be provided";
+  if (!password) throw "Password must be provided";
 
   const getInstructor = await Instructor.findOne({ email: email });
-  if (!getInstructor) throw "Email does not exist...";
+  if (!getInstructor) throw "Email does not exist";
 
   const checkPassword = await bcrypt.compare(password, getInstructor.password);
-  if (!checkPassword) throw "Email and password does not match...";
+  if (!checkPassword) throw "Email and password does not match";
 
   //jwt bearer token
   const accessToken = await jwt.sign(
@@ -72,7 +72,7 @@ exports.instructorLogin = async (req, res) => {
     data: {
       accessToken,
     },
-    message: "Login successful...",
+    message: "Login successful",
   });
 };
 

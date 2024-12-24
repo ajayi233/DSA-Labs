@@ -1,7 +1,6 @@
 const jwt = require("jsonwebtoken");
 
 const studentAuth = (req, res, next) => {
-  console.log("student auth");
   const accessToken = req.headers.authorization.split(" ")[1];
   const accessBadge = jwt.verify(accessToken, process.env.JWT_SECRET);
 
