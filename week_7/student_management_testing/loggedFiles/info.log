@@ -1,0 +1,298 @@
+{"level":"error","message":"Cannot read properties of undefined (reading 'push')","method":"POST","service":"student-management-system","url":"/enrollments/add"}
+{"level":"error","message":"Cast to string failed for value \"{\n  id: '675ff28731cd8b02df10176a',\n  studentID: 'STD6486208',\n  role: 'student',\n  iat: 1734513866,\n  exp: 1734600266\n}\" (type Object) at path \"studentID\" for model \"student\"","method":"POST","service":"student-management-system","url":"/enrollments/self-enroll"}
+{"level":"error","message":"Cast to string failed for value \"{\n  id: '675ff28731cd8b02df10176a',\n  studentID: 'STD6486208',\n  role: 'student',\n  iat: 1734513866,\n  exp: 1734600266\n}\" (type Object) at path \"studentID\" for model \"student\"","method":"POST","service":"student-management-system","url":"/enrollments/self-enroll"}
+{"level":"error","message":"Cast to string failed for value \"{\n  id: '675ff28731cd8b02df10176a',\n  studentID: 'STD6486208',\n  role: 'student',\n  iat: 1734513866,\n  exp: 1734600266\n}\" (type Object) at path \"studentID\" for model \"student\"","method":"POST","service":"student-management-system","url":"/enrollments/self-enroll"}
+{"level":"error","message":"Cast to string failed for value \"{\n  id: '675ff28731cd8b02df10176a',\n  studentID: 'STD6486208',\n  role: 'student',\n  iat: 1734513866,\n  exp: 1734600266\n}\" (type Object) at path \"studentID\" for model \"student\"","method":"POST","service":"student-management-system","url":"/enrollments/self-enroll"}
+{"level":"error","message":"Cast to string failed for value \"{\n  id: '675ff28731cd8b02df10176a',\n  studentID: 'STD6486208',\n  role: 'student',\n  iat: 1734513866,\n  exp: 1734600266\n}\" (type Object) at path \"studentID\" for model \"student\"","method":"POST","service":"student-management-system","url":"/enrollments/self-enroll"}
+{"level":"error","message":"courses is not defined","method":"GET","service":"student-management-system","url":"/enrollments/student/STD6486208"}
+{"level":"error","message":"courses is not defined","method":"GET","service":"student-management-system","url":"/enrollments/student/STD6486208"}
+{"level":"error","message":"courses is not defined","method":"GET","service":"student-management-system","url":"/enrollments/student/STD6486208"}
+{"level":"error","message":"courses is not defined","method":"GET","service":"student-management-system","url":"/enrollments/student/STD6486208"}
+{"level":"error","message":"courses is not defined","method":"GET","service":"student-management-system","url":"/enrollments/student/STD6486208"}
+{"level":"error","message":"getStudent.coursesEnrolled[0].includes is not a function","method":"POST","service":"student-management-system","url":"/enrollments/self-enroll"}
+{"level":"error","message":"getStudent.coursesEnrolled[0].includes is not a function","method":"POST","service":"student-management-system","url":"/enrollments/self-enroll"}
+{"level":"error","message":{"method":"POST","url":"/enrollments/self-enroll"},"service":"student-management-system"}
+{"level":"error","message":{"method":"POST","url":"/enrollments/self-enroll"},"service":"student-management-system"}
+{"level":"error","message":{"method":"POST","url":"/enrollments/self-enroll"},"service":"student-management-system"}
+{"level":"error","message":{"method":"POST","url":"/enrollments/self-enroll"},"service":"student-management-system"}
+{"level":"info","message":"Creating a new course","method":"GET","service":"student-management-system","url":"/STD6486208"}
+{"level":"info","message":"Getting a course","method":"GET","service":"student-management-system","url":"/CS101"}
+{"level":"error","message":"Cannot read properties of undefined (reading 'split')","method":"GET","service":"student-management-system","url":"/enrollments/course/CS101"}
+{"level":"info","message":"Getting a course","method":"GET","service":"student-management-system","url":"/CS104"}
+{"level":"error","message":"Cannot read properties of undefined (reading 'split')","method":"GET","service":"student-management-system","url":"/courses"}
+{"level":"info","message":"Creating a new course","method":"GET","service":"student-management-system","url":"/"}
+{"level":"error","message":"courses is not defined","method":"GET","service":"student-management-system","url":"/enrollments/student/STD6486208"}
+{"level":"error","message":"Cannot set headers after they are sent to the client","method":"PUT","service":"student-management-system","url":"/students/self-update"}
+{"level":"error","message":{"method":"POST","url":"/auth/instructor/login"},"service":"student-management-system"}
+{"level":"error","message":{"method":"POST","url":"/auth/instructor/login"},"service":"student-management-system"}
+{"level":"info","message":"Redis client connected","service":"student-management-system"}
+{"level":"info","message":"Redis client connected","service":"student-management-system"}
+{"level":"info","message":"Redis client connected","service":"student-management-system"}
+{"level":"info","message":"Redis client connected","service":"student-management-system"}
+{"level":"info","message":"Redis client connected","service":"student-management-system"}
+{"level":"info","message":"Redis client connected","service":"student-management-system"}
+{"level":"info","message":"Redis client connected","service":"student-management-system"}
+{"level":"info","message":"Redis client connected","service":"student-management-system"}
+{"level":"info","message":"Redis client connected","service":"student-management-system"}
+{"level":"info","message":"Redis client connected","service":"student-management-system"}
+{"level":"info","message":"Redis client connected","service":"student-management-system"}
+{"level":"info","message":"Redis client connected","service":"student-management-system"}
+{"level":"info","message":"Redis client connected","service":"student-management-system"}
+{"level":"info","message":"Redis client connected","service":"student-management-system"}
+{"level":"info","message":"Redis client connected","service":"student-management-system"}
+{"level":"info","message":"Redis client connected","service":"student-management-system"}
+{"level":"info","message":"Redis client connected","service":"student-management-system"}
+{"level":"info","message":"Redis client connected","service":"student-management-system"}
+{"level":"info","message":"Redis client connected","service":"student-management-system"}
+{"level":"info","message":"Redis client connected","service":"student-management-system"}
+{"level":"info","message":"Redis client connected","service":"student-management-system"}
+{"level":"info","message":"Redis client connected","service":"student-management-system"}
+{"level":"info","message":"Redis client connected","service":"student-management-system"}
+{"level":"info","message":"Redis client connected","service":"student-management-system"}
+{"level":"info","message":"Redis client connected","service":"student-management-system"}
+{"level":"info","message":"Redis client connected","service":"student-management-system"}
+{"level":"info","message":"Redis client connected","service":"student-management-system"}
+{"level":"info","message":"Redis client connected","service":"student-management-system"}
+{"level":"info","message":"Redis client connected","service":"student-management-system"}
+{"level":"info","message":"Redis client connected","service":"student-management-system"}
+{"level":"info","message":"Redis client connected","service":"student-management-system"}
+{"level":"info","message":"Redis client connected","service":"student-management-system"}
+{"level":"info","message":"Redis client connected","service":"student-management-system"}
+{"level":"info","message":"Redis client connected","service":"student-management-system"}
+{"level":"info","message":"Redis client connected","service":"student-management-system"}
+{"level":"info","message":"Redis client connected","service":"student-management-system"}
+{"level":"info","message":"Redis client connected","service":"student-management-system"}
+{"level":"info","message":"Redis client connected","service":"student-management-system"}
+{"level":"info","message":"Redis client connected","service":"student-management-system"}
+{"level":"info","message":"Redis client connected","service":"student-management-system"}
+{"level":"info","message":"Redis client connected","service":"student-management-system"}
+{"level":"info","message":"Redis client connected","service":"student-management-system"}
+{"level":"info","message":"Redis client connected","service":"student-management-system"}
+{"level":"info","message":"Redis client connected","service":"student-management-system"}
+{"level":"info","message":"Redis client connected","service":"student-management-system"}
+{"level":"info","message":"Redis client connected","service":"student-management-system"}
+{"level":"info","message":"Redis client connected","service":"student-management-system"}
+{"level":"info","message":"Redis client connected","service":"student-management-system"}
+{"level":"info","message":"Redis client connected","service":"student-management-system"}
+{"level":"info","message":"Redis client connected","service":"student-management-system"}
+{"level":"info","message":"Redis client connected","service":"student-management-system"}
+{"level":"info","message":"Redis client connected","service":"student-management-system"}
+{"level":"info","message":"Redis client connected","service":"student-management-system"}
+{"level":"info","message":"Redis client connected","service":"student-management-system"}
+{"level":"info","message":"Redis client connected","service":"student-management-system"}
+{"level":"info","message":"Redis client connected","service":"student-management-system"}
+{"level":"info","message":"Redis client connected","service":"student-management-system"}
+{"level":"info","message":"Redis client connected","service":"student-management-system"}
+{"level":"info","message":"Redis client connected","service":"student-management-system"}
+{"level":"error","message":"Unexpected token 'G', \"GET /sort/\"... is not valid JSON","method":"GET","service":"student-management-system","url":"/sort/courses?sortBy=name&order=asc"}
+{"level":"info","message":"Redis client connected","service":"student-management-system"}
+{"level":"info","message":"Redis client connected","service":"student-management-system"}
+{"level":"info","message":"Redis client connected","service":"student-management-system"}
+{"level":"info","message":"Redis client connected","service":"student-management-system"}
+{"level":"info","message":"Redis client connected","service":"student-management-system"}
+{"level":"info","message":"Redis client connected","service":"student-management-system"}
+{"level":"info","message":"Redis client connected","service":"student-management-system"}
+{"level":"info","message":"Redis client connected","service":"student-management-system"}
+{"level":"info","message":"Redis client connected","service":"student-management-system"}
+{"level":"info","message":"Redis client connected","service":"student-management-system"}
+{"level":"info","message":"Redis client connected","service":"student-management-system"}
+{"level":"info","message":"Redis client connected","service":"student-management-system"}
+{"level":"info","message":"Redis client connected","service":"student-management-system"}
+{"level":"info","message":"Redis client connected","service":"student-management-system"}
+{"level":"info","message":"Redis client connected","service":"student-management-system"}
+{"level":"info","message":"Redis client connected","service":"student-management-system"}
+{"level":"info","message":"Redis client connected","service":"student-management-system"}
+{"level":"info","message":"Redis client connected","service":"student-management-system"}
+{"level":"info","message":"Redis client connected","service":"student-management-system"}
+{"level":"info","message":"Redis client connected","service":"student-management-system"}
+{"level":"info","message":"Redis client connected","service":"student-management-system"}
+{"level":"info","message":"Redis client connected","service":"student-management-system"}
+{"level":"info","message":"Redis client connected","service":"student-management-system"}
+{"level":"info","message":"Redis client connected","service":"student-management-system"}
+{"level":"info","message":"Redis client connected","service":"student-management-system"}
+{"level":"info","message":"Redis client connected","service":"student-management-system"}
+{"level":"info","message":"Redis client connected","service":"student-management-system"}
+{"level":"info","message":"Redis client connected","service":"student-management-system"}
+{"level":"info","message":"Redis client connected","service":"student-management-system"}
+{"level":"info","message":"Redis client connected","service":"student-management-system"}
+{"level":"info","message":"Redis client connected","service":"student-management-system"}
+{"level":"info","message":"Redis client connected","service":"student-management-system"}
+{"level":"info","message":"Redis client connected","service":"student-management-system"}
+{"level":"info","message":"Redis client connected","service":"student-management-system"}
+{"level":"info","message":"Redis client connected","service":"student-management-system"}
+{"level":"info","message":"Redis client connected","service":"student-management-system"}
+{"level":"info","message":"Redis client connected","service":"student-management-system"}
+{"level":"info","message":"Redis client connected","service":"student-management-system"}
+{"level":"info","message":"Redis client connected","service":"student-management-system"}
+{"level":"info","message":"Redis client connected","service":"student-management-system"}
+{"level":"info","message":"Redis client connected","service":"student-management-system"}
+{"level":"info","message":"Redis client connected","service":"student-management-system"}
+{"level":"info","message":"Redis client connected","service":"student-management-system"}
+{"level":"info","message":"Redis client connected","service":"student-management-system"}
+{"level":"info","message":"Redis client connected","service":"student-management-system"}
+{"level":"info","message":"Redis client connected","service":"student-management-system"}
+{"level":"info","message":"Redis client connected","service":"student-management-system"}
+{"level":"info","message":"Redis client connected","service":"student-management-system"}
+{"level":"info","message":"Redis client connected","service":"student-management-system"}
+{"level":"info","message":"Redis client connected","service":"student-management-system"}
+{"level":"info","message":"Redis client connected","service":"student-management-system"}
+{"level":"info","message":"Redis client connected","service":"student-management-system"}
+{"level":"info","message":"Redis client connected","service":"student-management-system"}
+{"level":"info","message":"Redis client connected","service":"student-management-system"}
+{"level":"info","message":"Redis client connected","service":"student-management-system"}
+{"level":"info","message":"Redis client connected","service":"student-management-system"}
+{"level":"info","message":"Redis client connected","service":"student-management-system"}
+{"level":"info","message":"Redis client connected","service":"student-management-system"}
+{"level":"info","message":"Redis client connected","service":"student-management-system"}
+{"level":"info","message":"Redis client connected","service":"student-management-system"}
+{"level":"info","message":"Redis client connected","service":"student-management-system"}
+{"level":"info","message":"Redis client connected","service":"student-management-system"}
+{"level":"info","message":"Redis client connected","service":"student-management-system"}
+{"level":"info","message":"Redis client connected","service":"student-management-system"}
+{"level":"info","message":"Redis client connected","service":"student-management-system"}
+{"level":"info","message":"Redis client connected","service":"student-management-system"}
+{"level":"info","message":"Redis client connected","service":"student-management-system"}
+{"level":"info","message":"Redis client connected","service":"student-management-system"}
+{"level":"info","message":"Redis client connected","service":"student-management-system"}
+{"level":"info","message":"Redis client connected","service":"student-management-system"}
+{"level":"info","message":"Redis client connected","service":"student-management-system"}
+{"level":"info","message":"Redis client connected","service":"student-management-system"}
+{"level":"info","message":"Redis client connected","service":"student-management-system"}
+{"level":"info","message":"Redis client connected","service":"student-management-system"}
+{"level":"info","message":"Redis client connected","service":"student-management-system"}
+{"level":"info","message":"Redis client connected","service":"student-management-system"}
+{"level":"info","message":"Redis client connected","service":"student-management-system"}
+{"level":"info","message":"Redis client connected","service":"student-management-system"}
+{"level":"info","message":"Redis client connected","service":"student-management-system"}
+{"level":"info","message":"Redis client connected","service":"student-management-system"}
+{"level":"info","message":"Redis client connected","service":"student-management-system"}
+{"level":"info","message":"Redis client connected","service":"student-management-system"}
+{"level":"info","message":"Redis client connected","service":"student-management-system"}
+{"level":"info","message":"Redis client connected","service":"student-management-system"}
+{"level":"info","message":"Redis client connected","service":"student-management-system"}
+{"level":"info","message":"Redis client connected","service":"student-management-system"}
+{"level":"info","message":"Redis client connected","service":"student-management-system"}
+{"level":"info","message":"Redis client connected","service":"student-management-system"}
+{"level":"info","message":"Redis client connected","service":"student-management-system"}
+{"level":"info","message":"Redis client connected","service":"student-management-system"}
+{"level":"error","message":"jwt expired","method":"GET","service":"student-management-system","url":"/instructors?firstName=daniel"}
+{"level":"info","message":"Redis client connected","service":"student-management-system"}
+{"level":"info","message":"Redis client connected","service":"student-management-system"}
+{"level":"info","message":"Redis client connected","service":"student-management-system"}
+{"level":"info","message":"Redis client connected","service":"student-management-system"}
+{"level":"info","message":"Redis client connected","service":"student-management-system"}
+{"level":"info","message":"Redis client connected","service":"student-management-system"}
+{"level":"info","message":"Redis client connected","service":"student-management-system"}
+{"level":"info","message":"Redis client connected","service":"student-management-system"}
+{"level":"info","message":"Redis client connected","service":"student-management-system"}
+{"level":"info","message":"Redis client connected","service":"student-management-system"}
+{"level":"info","message":"Redis client connected","service":"student-management-system"}
+{"level":"info","message":"Redis client connected","service":"student-management-system"}
+{"level":"info","message":"Redis client connected","service":"student-management-system"}
+{"level":"info","message":"Redis client connected","service":"student-management-system"}
+{"level":"info","message":"Redis client connected","service":"student-management-system"}
+{"level":"info","message":"Redis client connected","service":"student-management-system"}
+{"level":"info","message":"Redis client connected","service":"student-management-system"}
+{"level":"info","message":"Redis client connected","service":"student-management-system"}
+{"level":"info","message":"Redis client connected","service":"student-management-system"}
+{"level":"error","message":"email is not defined","method":"POST","service":"student-management-system","url":"/auth/password-reset"}
+{"level":"info","message":"Redis client connected","service":"student-management-system"}
+{"level":"info","message":"Redis client connected","service":"student-management-system"}
+{"level":"info","message":"Redis client connected","service":"student-management-system"}
+{"level":"info","message":"Redis client connected","service":"student-management-system"}
+{"level":"info","message":"Redis client connected","service":"student-management-system"}
+{"level":"info","message":"Redis client connected","service":"student-management-system"}
+{"level":"info","message":"Redis client connected","service":"student-management-system"}
+{"level":"info","message":"Redis client connected","service":"student-management-system"}
+{"level":"info","message":"Redis client connected","service":"student-management-system"}
+{"level":"info","message":"Redis client connected","service":"student-management-system"}
+{"level":"info","message":"Redis client connected","service":"student-management-system"}
+{"level":"info","message":"Redis client connected","service":"student-management-system"}
+{"level":"error","message":"Illegal arguments: string, undefined","method":"POST","service":"student-management-system","url":"/auth/password-reset"}
+{"level":"info","message":"Redis client connected","service":"student-management-system"}
+{"level":"info","message":"Redis client connected","service":"student-management-system"}
+{"level":"info","message":"Redis client connected","service":"student-management-system"}
+{"level":"error","message":"Illegal arguments: string, undefined","method":"POST","service":"student-management-system","url":"/auth/password-reset"}
+{"level":"info","message":"Redis client connected","service":"student-management-system"}
+{"level":"info","message":"Redis client connected","service":"student-management-system"}
+{"level":"info","message":"Redis client connected","service":"student-management-system"}
+{"level":"info","message":"Redis client connected","service":"student-management-system"}
+{"level":"info","message":"Redis client connected","service":"student-management-system"}
+{"level":"info","message":"Redis client connected","service":"student-management-system"}
+{"level":"info","message":"Redis client connected","service":"student-management-system"}
+{"level":"info","message":"Redis client connected","service":"student-management-system"}
+{"level":"info","message":"Redis client connected","service":"student-management-system"}
+{"level":"info","message":"Redis client connected","service":"student-management-system"}
+{"level":"info","message":"Redis client connected","service":"student-management-system"}
+{"level":"info","message":"Redis client connected","service":"student-management-system"}
+{"level":"info","message":"Redis client connected","service":"student-management-system"}
+{"level":"info","message":"Redis client connected","service":"student-management-system"}
+{"level":"info","message":"Redis client connected","service":"student-management-system"}
+{"level":"error","message":"Cast to ObjectId failed for value \"{ person: '6761a40ca423abc423627445' }\" (type Object) at path \"_id\" for model \"student\"","method":"POST","service":"student-management-system","url":"/auth/password-reset"}
+{"level":"info","message":"Redis client connected","service":"student-management-system"}
+{"level":"info","message":"Redis client connected","service":"student-management-system"}
+{"level":"info","message":"Redis client connected","service":"student-management-system"}
+{"level":"info","message":"Redis client connected","service":"student-management-system"}
+{"level":"info","message":"Redis client connected","service":"student-management-system"}
+{"level":"info","message":"Redis client connected","service":"student-management-system"}
+{"level":"info","message":"Redis client connected","service":"student-management-system"}
+{"level":"info","message":"Redis client connected","service":"student-management-system"}
+{"level":"info","message":"Redis client connected","service":"student-management-system"}
+{"level":"info","message":"Redis client connected","service":"student-management-system"}
+{"level":"info","message":"Redis client connected","service":"student-management-system"}
+{"level":"info","message":"Redis client connected","service":"student-management-system"}
+{"level":"info","message":"Redis client connected","service":"student-management-system"}
+{"level":"info","message":"Redis client connected","service":"student-management-system"}
+{"level":"info","message":"Redis client connected","service":"student-management-system"}
+{"level":"info","message":"Redis client connected","service":"student-management-system"}
+{"level":"info","message":"Redis client connected","service":"student-management-system"}
+{"level":"info","message":"Redis client connected","service":"student-management-system"}
+{"level":"info","message":"Redis client connected","service":"student-management-system"}
+{"level":"info","message":"Redis client connected","service":"student-management-system"}
+{"level":"info","message":"Redis client connected","service":"student-management-system"}
+{"level":"info","message":"Redis client connected","service":"student-management-system"}
+{"level":"info","message":"Redis client connected","service":"student-management-system"}
+{"level":"info","message":"Redis client connected","service":"student-management-system"}
+{"level":"info","message":"Redis client connected","service":"student-management-system"}
+{"level":"info","message":"Redis client connected","service":"student-management-system"}
+{"level":"info","message":"Redis client connected","service":"student-management-system"}
+{"level":"info","message":"Redis client connected","service":"student-management-system"}
+{"level":"info","message":"Redis client connected","service":"student-management-system"}
+{"level":"info","message":"Redis client connected","service":"student-management-system"}
+{"level":"info","message":"Redis client connected","service":"student-management-system"}
+{"level":"info","message":"Redis client connected","service":"student-management-system"}
+{"level":"info","message":"Redis client connected","service":"student-management-system"}
+{"level":"info","message":"Redis client connected","service":"student-management-system"}
+{"level":"info","message":"Redis client connected","service":"student-management-system"}
+{"level":"info","message":"Redis client connected","service":"student-management-system"}
+{"level":"info","message":"Redis client connected","service":"student-management-system"}
+{"level":"info","message":"Redis client connected","service":"student-management-system"}
+{"level":"error","message":{"method":"POST","url":"/auth/password-reset"},"service":"student-management-system"}
+{"level":"error","message":"Illegal arguments: string, undefined","method":"POST","service":"student-management-system","url":"/auth/password-reset"}
+{"level":"error","message":"Illegal arguments: string, undefined","method":"POST","service":"student-management-system","url":"/auth/password-reset"}
+{"level":"info","message":"Redis client connected","service":"student-management-system"}
+{"level":"error","message":"Illegal arguments: string, undefined","method":"POST","service":"student-management-system","url":"/auth/password-reset"}
+{"level":"info","message":"Redis client connected","service":"student-management-system"}
+{"level":"info","message":"Redis client connected","service":"student-management-system"}
+{"level":"info","message":"Redis client connected","service":"student-management-system"}
+{"level":"info","message":"Redis client connected","service":"student-management-system"}
+{"level":"info","message":"Redis client connected","service":"student-management-system"}
+{"level":"info","message":"Redis client connected","service":"student-management-system"}
+{"level":"info","message":"Redis client connected","service":"student-management-system"}
+{"level":"info","message":"Redis client connected","service":"student-management-system"}
+{"level":"info","message":"Redis client connected","service":"student-management-system"}
+{"level":"info","message":"Redis client connected","service":"student-management-system"}
+{"level":"info","message":"Redis client connected","service":"student-management-system"}
+{"level":"info","message":"Redis client connected","service":"student-management-system"}
+{"level":"info","message":"Redis client connected","service":"student-management-system"}
+{"level":"info","message":"Redis client connected","service":"student-management-system"}
+{"level":"info","message":"Redis client connected","service":"student-management-system"}
+{"level":"info","message":"Redis client connected","service":"student-management-system"}
+{"level":"info","message":"Redis client connected","service":"student-management-system"}
+{"level":"info","message":"Redis client connected","service":"student-management-system"}
+{"level":"info","message":"Redis client connected","service":"student-management-system"}
+{"level":"info","message":"Redis client connected","service":"student-management-system"}
+{"level":"info","message":"Redis client connected","service":"student-management-system"}
+{"level":"info","message":"Redis client connected","service":"student-management-system"}
+{"level":"info","message":"Redis client connected","service":"student-management-system"}
+{"level":"info","message":"Redis client connected","service":"student-management-system"}
