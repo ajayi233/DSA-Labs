@@ -7,15 +7,23 @@ exports.addEnrollment = async (req, res) => {
   const { studentID, courseCode } = req.body;
 
   //validation
-  if (!studentID) throw "Student ID is required...";
-  if (!courseCode) throw "Course is required...";
+  if (!studentID || !courseCode)
+    return res
+      .status(400)
+      .json({
+        success: false,
+        error: "Student ID and course code are required...",
+      });
 
   const getStudent = await Student.findOne({ studentID: studentID });
   const getCourse = await Course.findOne({ code: courseCode });
 
-  if (!getCourse || !getStudent) throw "Error in getting student or course...";
+  if (!getCourse || !getStudent) return res.status(400).json({
+    success: false,
+    error: "Error in getting student or course",
+  });
 
-  console.log(getStudent);
+  
   const newEnrollment = await Enrollment.create({
     student: getStudent._id,
     course: getCourse._id,
@@ -40,7 +48,11 @@ exports.selfEnroll = async (req, res) => {
   const getStudent = await Student.findOne({ studentID: studentID.studentID });
   const getCourse = await Course.findOne({ code: courseCode });
 
-  if (!getCourse || !getStudent) throw "Error in getting student or course";
+  if (!getCourse || !getStudent) return res.status(400).json({
+    success: false,
+    error: "Error in getting student or course",
+  });
+  
   const similarEnrollment = await Enrollment.findOne({
     student: getStudent._id,
     course: getCourse._id,
