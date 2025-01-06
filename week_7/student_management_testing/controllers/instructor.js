@@ -16,19 +16,11 @@ exports.addInstructor = async (req, res) => {
   } = req.body;
 
   //validation
-  if (!firstName) throw "Instructor first name is required...";
-  if (!lastName) throw "Instructor last name is required...";
-  if (!email) throw "Instructor email is required...";
-  if (!password) throw "Instructor password is required...";
-  if (!dateOfBirth) throw "Instructor date of birth is required...";
-  if (!phone) throw "Instructor phone is required...";
-  if (!address) throw "Instructor address is required...";
-  if (!hireDate) throw "Instructor hire date is required...";
-  if (!department) throw "Instructor department is required...";
+  if(!firstName || !lastName || !email || !password || !dateOfBirth || !phone || !address || !hireDate || !department) return res.status(400).json({success: false, error: "Please fill all the fields"});
 
   //email validation
   const getDuplicateEmail = await Instructor.findOne({ email: email });
-  if (getDuplicateEmail) throw "Email already exists...";
+  if (getDuplicateEmail) return res.status(400).json({success: false, error: "Email already exists"});
 
   const generateRandomId = () => {
     const prefix = "INSTR";
@@ -56,7 +48,7 @@ exports.addInstructor = async (req, res) => {
     department,
   });
   res.status(200).json({
-    status: "success",
+    success: true,
     data: {
       instructor: newInstructor,
     },
@@ -71,13 +63,13 @@ exports.getAllInstructors = async (req, res) => {
   //validation
   if (!instructors) {
     return res.status(400).json({
-      status: "fail",
+      success: false,
       error: "No instructors found",
     });
   }
 
   res.status(200).json({
-    status: "success",
+    success: true,
     data: {
       instructors,
     },
@@ -93,13 +85,13 @@ exports.getInstructorById = async (req, res) => {
   //validation
   if (!instructor) {
     return res.status(400).json({
-      status: "fail",
+      success: false,
       error: "No instructor found",
     });
   }
 
   res.status(200).json({
-    status: "success",
+    success: true,
     data: {
       instructor,
     },
@@ -135,7 +127,7 @@ exports.updateInstructorById = async (req, res) => {
     !department
   ) {
     return res.status(400).json({
-      status: "fail",
+      success: false,
       error: "Please fill all the fields",
     });
   }
@@ -163,13 +155,13 @@ exports.updateInstructorById = async (req, res) => {
   //validation
   if (!instructor) {
     return res.status(400).json({
-      status: "fail",
+      success: false,
       error: "No instructor found",
     });
   }
 
   res.status(200).json({
-    status: "success",
+    success: true,
     data: {
       instructor,
     },
@@ -185,13 +177,13 @@ exports.deleteInstructorById = async (req, res) => {
   //validation
   if (!instructor) {
     return res.status(400).json({
-      status: "fail",
+      success: false,
       error: "No instructor found",
     });
   }
 
   res.status(200).json({
-    status: "success",
+    success: true,
     data: {
       instructor,
     },

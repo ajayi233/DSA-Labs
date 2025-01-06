@@ -45,7 +45,7 @@ const instructorRouter = express.Router();
  *       500:
  *         description: Internal server error
  */
-instructorRouter.post("/add", instructorAuth, addInstructor);
+instructorRouter.post("/add", addInstructor);
 
 /**
  * @swagger

@@ -8,14 +8,18 @@ exports.studentLogin = async (req, res) => {
   const { email, password } = req.body;
 
   //validation
-  if (!email) throw "Email must be provided...";
-  if (!password) throw "Password must be provided...";
+  if (!email || !password)
+    return res.status(400).json({ message: "Missing email or password" });
 
   const getStudent = await Student.findOne({ email: email });
-  if (!getStudent) throw "Email does not exist...";
+  if (!getStudent)
+    return res.status(400).json({ message: "Email does not exist" });
 
   const checkPassword = await bcrypt.compare(password, getStudent.password);
-  if (!checkPassword) throw "Email and password does not match...";
+  if (!checkPassword)
+    return res
+      .status(400)
+      .json({ message: "Email and password does not match" });
 
   //   console.log(getStudent);
 
@@ -46,14 +50,18 @@ exports.instructorLogin = async (req, res) => {
   const { email, password } = req.body;
 
   //validation
-  if (!email) throw "Email must be provided...";
-  if (!password) throw "Password must be provided...";
+  if (!email || !password)
+    return res.status(400).json({ message: "Missing email or password" });
 
   const getInstructor = await Instructor.findOne({ email: email });
-  if (!getInstructor) throw "Email does not exist...";
+  if (!getInstructor)
+    return res.status(400).json({ message: "Email does not exist" });
 
   const checkPassword = await bcrypt.compare(password, getInstructor.password);
-  if (!checkPassword) throw "Email and password does not match...";
+  if (!checkPassword)
+    return res
+      .status(400)
+      .json({ message: "Email and password does not match" });
 
   //jwt bearer token
   const accessToken = await jwt.sign(
@@ -81,9 +89,10 @@ exports.resetPassword = async (req, res) => {
   const { password, newPassword } = req.body;
 
   //validation
-  if (!password) throw "Password must be provided";
-  if (!newPassword) throw "New password must be provided";
-  if (password !== newPassword) throw "Password does not match";
+  if (!password || !newPassword || password !== newPassword)
+    return res
+      .status(400)
+      .json({ message: "All fields are required and password must match" });
 
   const person = req.user.id;
 

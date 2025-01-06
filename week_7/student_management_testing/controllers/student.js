@@ -1,7 +1,5 @@
 const Student = require("../model/student");
 const bcrypt = require("bcryptjs");
-const redis = require("../utils/redis");
-
 
 // register student
 exports.registerStudent = async (req, res) => {
@@ -37,7 +35,12 @@ exports.registerStudent = async (req, res) => {
 
   //email validation
   const getDuplicateEmail = await Student.findOne({ email: email });
-  if (getDuplicateEmail) throw "Email already exists...";
+  if (getDuplicateEmail) {
+    return res.status(400).json({
+      success: false,
+      error: "Email already exists",
+    });
+  }
 
   //student ID
   const generateRandomId = () => {
@@ -79,6 +82,7 @@ exports.getAllStudents = async (req, res) => {
   const startIndex = (page - 1) * limit;
 
   const students = await Student.find().skip(startIndex).limit(limit);
+  const totalResult = await Student.countDocuments();
 
   //validation
   if (!students) {
@@ -90,7 +94,7 @@ exports.getAllStudents = async (req, res) => {
 
   res.status(200).json({
     success: true,
-    totalResult: students.length,
+    totalResult,
     data: students,
     message: "Students found successfully",
   });

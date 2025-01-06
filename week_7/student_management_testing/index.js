@@ -11,10 +11,9 @@ const authRouter = require("./routes/auth");
 const sortRouter = require("./routes/sort");
 const swaggerUI = require("swagger-ui-express");
 const swaggerSpec = require("./swagger/swagger");
-const {connectRedis} = require("./utils/redis");
+const { connectRedis } = require("./utils/redis");
 
 const app = express();
-
 
 connectRedis(); //connecting to redis
 
@@ -49,6 +48,8 @@ app.get("*", (req, res) => {
 //error handler
 app.use(errorHandler);
 
+
+
 //connecting to db
 const PORT = process.env.PORT;
 const dbURI = process.env.dbURI;
@@ -56,10 +57,12 @@ mongoose
   .connect(dbURI)
   .then(() => {
     console.log("...........Database connected successfully...........");
-    app.listen(3000, () => {
+    app.listen(PORT, () => {
       console.log(`API is live on http://localhost:${PORT}`);
     });
   })
   .catch((err) => {
     console.log(err);
   });
+
+module.exports = app;
