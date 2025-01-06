@@ -3,9 +3,12 @@ const {
   updateCourseById,
   deleteCourseById,
 } = require("../../../controllers/course");
+const Course = require("../../../model/course");
+const Instructor = require("../../../model/instructor");
 
 jest.mock("../../../model/course");
 jest.mock("../../../model/instructor");
+jest.mock("../../../utils/logger");
 
 describe("Course Controller", () => {
   let res;
@@ -20,6 +23,8 @@ describe("Course Controller", () => {
     body,
     query,
     user,
+    url: '/test',
+    method: 'GET'
   });
 
   beforeEach(() => {
@@ -29,12 +34,20 @@ describe("Course Controller", () => {
 
   describe("getCourseById", () => {
     it("should return course data when course is found", async () => {
-      const req = mockRequest({ id: "1" });
-      const courseData = { id: "1", name: "Test Course" };
-      require("../../../model/course").findOne.mockResolvedValue(courseData);
+      const courseData = { 
+        code: "TEST101", 
+        name: "Test Course",
+        description: "Test Description",
+        credits: 3,
+        instructorID: "INST123",
+        duration: "3 months"
+      };
+      const req = mockRequest({ id: "TEST101" });
+      Course.findOne.mockResolvedValue(courseData);
 
       await getCourseById(req, res);
 
+      expect(Course.findOne).toHaveBeenCalledWith({ code: "TEST101" });
       expect(res.status).toHaveBeenCalledWith(200);
       expect(res.json).toHaveBeenCalledWith({
         status: "success",
@@ -44,11 +57,12 @@ describe("Course Controller", () => {
     });
 
     it("should return 400 when course is not found", async () => {
-      const req = mockRequest({ id: "1" });
-      require("../../../model/course").findOne.mockResolvedValue(null);
+      const req = mockRequest({ id: "TEST101" });
+      Course.findOne.mockResolvedValue(null);
 
       await getCourseById(req, res);
 
+      expect(Course.findOne).toHaveBeenCalledWith({ code: "TEST101" });
       expect(res.status).toHaveBeenCalledWith(400);
       expect(res.json).toHaveBeenCalledWith({
         status: "fail",
@@ -58,15 +72,28 @@ describe("Course Controller", () => {
   });
 
   describe("updateCourseById", () => {
+    const validUpdateBody = {
+      name: "Updated Course",
+      code: "TEST101",
+      description: "Updated Description",
+      credits: 4,
+      instructorID: "INST123",
+      duration: "4 months"
+    };
+
     it("should update course data when course is found", async () => {
-      const req = mockRequest({ id: "1" }, { name: "Updated Course" });
-      const updatedCourseData = { id: "1", name: "Updated Course" };
-      require("../../../model/course").findOneAndUpdate.mockResolvedValue(
-        updatedCourseData
-      );
+      const req = mockRequest({ id: "TEST101" }, validUpdateBody);
+      const updatedCourseData = { ...validUpdateBody };
+      
+      Instructor.findOne.mockResolvedValue({ _id: "instructor_id_123" });
+      Course.findOneAndUpdate.mockResolvedValue(updatedCourseData);
 
       await updateCourseById(req, res);
 
+      expect(Instructor.findOne).toHaveBeenCalledWith({ 
+        instructorID: validUpdateBody.instructorID 
+      });
+      expect(Course.findOneAndUpdate).toHaveBeenCalled();
       expect(res.status).toHaveBeenCalledWith(200);
       expect(res.json).toHaveBeenCalledWith({
         status: "success",
@@ -75,9 +102,21 @@ describe("Course Controller", () => {
       });
     });
 
+    it("should throw error when required fields are missing", async () => {
+      const req = mockRequest({ id: "TEST101" }, { 
+        name: "Updated Course" 
+      });
+
+      await expect(updateCourseById(req, res)).rejects.toEqual(
+        "Course code is required..."
+      );
+    });
+
     it("should return 400 when course is not found", async () => {
-      const req = mockRequest({ id: "1" }, { name: "Updated Course" });
-      require("../../../model/course").findOneAndUpdate.mockResolvedValue(null);
+      const req = mockRequest({ id: "TEST101" }, validUpdateBody);
+      
+      Instructor.findOne.mockResolvedValue({ _id: "instructor_id_123" });
+      Course.findOneAndUpdate.mockResolvedValue(null);
 
       await updateCourseById(req, res);
 
@@ -91,26 +130,31 @@ describe("Course Controller", () => {
 
   describe("deleteCourseById", () => {
     it("should delete course when course is found", async () => {
-      const req = mockRequest({ id: "1" });
-      require("../../../model/course").findOneAndDelete.mockResolvedValue({
-        id: "1",
-      });
+      const req = mockRequest({ id: "TEST101" });
+      const deletedCourse = {
+        code: "TEST101",
+        name: "Test Course"
+      };
+      Course.findOneAndDelete.mockResolvedValue(deletedCourse);
 
       await deleteCourseById(req, res);
 
+      expect(Course.findOneAndDelete).toHaveBeenCalledWith({ code: "TEST101" });
       expect(res.status).toHaveBeenCalledWith(200);
       expect(res.json).toHaveBeenCalledWith({
         status: "success",
+        data: { course: deletedCourse },
         message: "Course deleted successfully",
       });
     });
 
     it("should return 400 when course is not found", async () => {
-      const req = mockRequest({ id: "1" });
-      require("../../../model/course").findOneAndDelete.mockResolvedValue(null);
+      const req = mockRequest({ id: "TEST101" });
+      Course.findOneAndDelete.mockResolvedValue(null);
 
       await deleteCourseById(req, res);
 
+      expect(Course.findOneAndDelete).toHaveBeenCalledWith({ code: "TEST101" });
       expect(res.status).toHaveBeenCalledWith(400);
       expect(res.json).toHaveBeenCalledWith({
         status: "fail",
@@ -119,5 +163,3 @@ describe("Course Controller", () => {
     });
   });
 });
-
-

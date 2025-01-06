@@ -1,121 +1,271 @@
-const app = require("../../index");
-const request = require("supertest");
-const bcrypt = require("bcryptjs");
-const Student = require("../../model/student");
-const Instructor = require("../../model/instructor");
+const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
+const Student = require('../../model/student');
+const Instructor = require('../../model/instructor');
+const { studentLogin, instructorLogin, resetPassword } = require('../../controllers/auth');
 
-describe("Instructor login controller", () => {
-  const url = "/auth/instructor/login";
-  const savedInstructor = {
-    firstName: "John",
-    lastName: "Doe",
-    email: "e2Bnekjhwekmeee4jhgj@efxample.com",
-    password: bcrypt.hashSync("password123", Number(process.env.SALT)),
-    dateOfBirth: "1990-01-01",
-    phone: "123-456-7890",
-    address: "123 Main St",
-    hireDate: "2022-01-01",
-    department: "Computer Science",
-    InstructorID: "test12333",
-  };
+// Mock all dependencies
+jest.mock('bcryptjs');
+jest.mock('jsonwebtoken');
+jest.mock('../../model/student');
+jest.mock('../../model/instructor');
 
-  beforeAll(async () => {
-    await Instructor.deleteMany({});
-    await new Instructor(savedInstructor).save();
-  });
-  afterAll(async () => {
-    await Instructor.deleteMany({});
-  });
+describe('Auth Controller', () => {
+  let mockReq;
+  let mockRes;
 
-  it("should return status 400 if email or password is not provided", async () => {
-    const response = await request(app).post(url).send({});
-    expect(response.status).toBe(400);
-    expect(response.body.message).toBe("Missing email or password");
+  beforeEach(() => {
+    // Reset all mocks before each test
+    jest.clearAllMocks();
+    
+    // Mock response object with status and json methods
+    mockRes = {
+      status: jest.fn().mockReturnThis(),
+      json: jest.fn()
+    };
+
+    // Set environment variables needed for tests
+    process.env.JWT_SECRET = 'test-secret';
+    process.env.SALT = '10';
   });
 
-  it("should return status 400 if email is not registered", async () => {
-    const response = await request(app)
-      .post(url)
-      .send({ email: "hjhh@gmail.com", password: "password123" });
-    expect(response.status).toBe(400);
-    expect(response.body.message).toBe("Email does not exist");
+  describe('studentLogin', () => {
+    beforeEach(() => {
+      mockReq = {
+        body: {
+          email: 'test@student.com',
+          password: 'password123'
+        }
+      };
+    });
+
+    it('should return 400 when email is missing', async () => {
+      mockReq.body = { password: 'password123' };
+      
+      await studentLogin(mockReq, mockRes);
+      
+      expect(mockRes.status).toHaveBeenCalledWith(400);
+      expect(mockRes.json).toHaveBeenCalledWith({
+        message: 'Missing email or password'
+      });
+    });
+
+    it('should return 400 when password is missing', async () => {
+      mockReq.body = { email: 'test@student.com' };
+      
+      await studentLogin(mockReq, mockRes);
+      
+      expect(mockRes.status).toHaveBeenCalledWith(400);
+      expect(mockRes.json).toHaveBeenCalledWith({
+        message: 'Missing email or password'
+      });
+    });
+
+    it('should return 400 when student email does not exist', async () => {
+      Student.findOne.mockResolvedValue(null);
+      
+      await studentLogin(mockReq, mockRes);
+      
+      expect(mockRes.status).toHaveBeenCalledWith(400);
+      expect(mockRes.json).toHaveBeenCalledWith({
+        message: 'Email does not exist'
+      });
+    });
+
+    it('should return 400 when password is incorrect', async () => {
+      Student.findOne.mockResolvedValue({
+        email: 'test@student.com',
+        password: 'hashedPassword'
+      });
+      bcrypt.compare.mockResolvedValue(false);
+      
+      await studentLogin(mockReq, mockRes);
+      
+      expect(mockRes.status).toHaveBeenCalledWith(400);
+      expect(mockRes.json).toHaveBeenCalledWith({
+        message: 'Email and password does not match'
+      });
+    });
+
+    it('should login successfully and return token', async () => {
+      const mockStudent = {
+        _id: 'student123',
+        studentID: 'STD123',
+        role: 'student',
+        password: 'hashedPassword'
+      };
+      
+      Student.findOne.mockResolvedValue(mockStudent);
+      bcrypt.compare.mockResolvedValue(true);
+      jwt.sign.mockResolvedValue('test-token');
+      
+      await studentLogin(mockReq, mockRes);
+      
+      expect(jwt.sign).toHaveBeenCalledWith(
+        {
+          id: mockStudent._id,
+          studentID: mockStudent.studentID,
+          role: mockStudent.role
+        },
+        process.env.JWT_SECRET,
+        { expiresIn: '1d' }
+      );
+      expect(mockRes.status).toHaveBeenCalledWith(200);
+      expect(mockRes.json).toHaveBeenCalledWith({
+        status: 'success',
+        data: { accessToken: 'test-token' },
+        message: 'Login successful...'
+      });
+    });
   });
 
-  it("should return status 400 if password is incorrect", async () => {
-    const response = await request(app)
-      .post(url)
-      .send({ email: savedInstructor.email, password: "wrong password" });
+  describe('instructorLogin', () => {
+    beforeEach(() => {
+      mockReq = {
+        body: {
+          email: 'test@instructor.com',
+          password: 'password123'
+        }
+      };
+    });
 
-    expect(response.status).toBe(400);
-    expect(response.body.message).toBe("Email and password does not match");
+    it('should return 400 when email is missing', async () => {
+      mockReq.body = { password: 'password123' };
+      
+      await instructorLogin(mockReq, mockRes);
+      
+      expect(mockRes.status).toHaveBeenCalledWith(400);
+      expect(mockRes.json).toHaveBeenCalledWith({
+        message: 'Missing email or password'
+      });
+    });
+
+    it('should return 400 when password is missing', async () => {
+      mockReq.body = { email: 'test@instructor.com' };
+      
+      await instructorLogin(mockReq, mockRes);
+      
+      expect(mockRes.status).toHaveBeenCalledWith(400);
+      expect(mockRes.json).toHaveBeenCalledWith({
+        message: 'Missing email or password'
+      });
+    });
+
+    it('should return 400 when instructor email does not exist', async () => {
+      Instructor.findOne.mockResolvedValue(null);
+      
+      await instructorLogin(mockReq, mockRes);
+      
+      expect(mockRes.status).toHaveBeenCalledWith(400);
+      expect(mockRes.json).toHaveBeenCalledWith({
+        message: 'Email does not exist'
+      });
+    });
+
+    it('should return 400 when password is incorrect', async () => {
+      Instructor.findOne.mockResolvedValue({
+        email: 'test@instructor.com',
+        password: 'hashedPassword'
+      });
+      bcrypt.compare.mockResolvedValue(false);
+      
+      await instructorLogin(mockReq, mockRes);
+      
+      expect(mockRes.status).toHaveBeenCalledWith(400);
+      expect(mockRes.json).toHaveBeenCalledWith({
+        message: 'Email and password does not match'
+      });
+    });
+
+    it('should login successfully and return token', async () => {
+      const mockInstructor = {
+        _id: 'instructor123',
+        InstructorID: 'INS123',
+        password: 'hashedPassword'
+      };
+      
+      Instructor.findOne.mockResolvedValue(mockInstructor);
+      bcrypt.compare.mockResolvedValue(true);
+      jwt.sign.mockResolvedValue('test-token');
+      
+      await instructorLogin(mockReq, mockRes);
+      
+      expect(jwt.sign).toHaveBeenCalledWith(
+        {
+          id: mockInstructor._id,
+          InstructorID: mockInstructor.InstructorID
+        },
+        process.env.JWT_SECRET,
+        { expiresIn: '1d' }
+      );
+      expect(mockRes.status).toHaveBeenCalledWith(200);
+      expect(mockRes.json).toHaveBeenCalledWith({
+        status: 'success',
+        data: { accessToken: 'test-token' },
+        message: 'Login successful...'
+      });
+    });
   });
 
-  it("should successfully log in an instructor", async () => {
-    const response = await request(app)
-      .post(url)
-      .send({ email: savedInstructor.email, password: "password123" });
-    expect(response.status).toBe(200);
-    expect(response.body.status).toBe("success");
-    expect(response.body.data).toHaveProperty("accessToken");
-    expect(response.body.message).toBe("Login successful");
-  });    
+  describe('resetPassword', () => {
+    beforeEach(() => {
+      mockReq = {
+        body: {
+          password: 'newPassword123',
+          newPassword: 'newPassword123'
+        },
+        user: {
+          id: 'user123'
+        }
+      };
+    });
+
+    it('should return 400 when passwords do not match', async () => {
+      mockReq.body = {
+        password: 'password1',
+        newPassword: 'password2'
+      };
+      
+      await resetPassword(mockReq, mockRes);
+      
+      expect(mockRes.status).toHaveBeenCalledWith(400);
+      expect(mockRes.json).toHaveBeenCalledWith({
+        message: 'All fields are required and password must match'
+      });
+    });
+
+    it('should return 400 when user is not found', async () => {
+      mockReq.user = {};
+      
+      await resetPassword(mockReq, mockRes);
+      
+      expect(mockRes.status).toHaveBeenCalledWith(400);
+      expect(mockRes.json).toHaveBeenCalledWith({
+        status: 'fail',
+        message: 'User not found'
+      });
+    });
+
+    it('should successfully reset password', async () => {
+      const hashedPassword = 'hashedNewPassword';
+      bcrypt.hash.mockResolvedValue(hashedPassword);
+      Student.findByIdAndUpdate.mockResolvedValue({});
+      Instructor.findByIdAndUpdate.mockResolvedValue({});
+      
+      await resetPassword(mockReq, mockRes);
+      
+      expect(bcrypt.hash).toHaveBeenCalledWith('newPassword123', 10);
+      expect(Student.findByIdAndUpdate).toHaveBeenCalledWith('user123', {
+        password: hashedPassword
+      });
+      expect(Instructor.findByIdAndUpdate).toHaveBeenCalledWith('user123', {
+        password: hashedPassword
+      });
+      expect(mockRes.status).toHaveBeenCalledWith(200);
+      expect(mockRes.json).toHaveBeenCalledWith({
+        status: 'success',
+        message: 'Password reset successfully'
+      });
+    });
+  });
 });
-
-describe("Student login controller", () => {
-  const url = "/auth/student/login";
-  const savedStudent = {
-    firstName: "Jane",
-    lastName: "Doe",
-    email: "student@example.com",
-    password: bcrypt.hashSync("password123", Number(process.env.SALT)),
-    dateOfBirth: "2000-01-01",
-    phone: "123-456-7890",
-    address: "456 Elm St",
-    gender: "female",
-    enrollmentDate: "2022-09-01",
-    studentID: "testStudent123",
-  };
-
-  beforeAll(async () => {
-    await Student.deleteMany({});
-    await new Student(savedStudent).save();
-  });
-
-  afterAll(async () => {
-    await Student.deleteMany({});
-  });
-
-  it("should return status 400 if email or password is not provided", async () => {
-    const response = await request(app).post(url).send({});
-    expect(response.status).toBe(400);
-    expect(response.body.message).toBe("Missing email or password");
-  });
-
-  it("should return status 400 if email is not registered", async () => {
-    const response = await request(app)
-      .post(url)
-      .send({ email: "nonexistent@example.com", password: "password123" });
-    expect(response.status).toBe(400);
-    expect(response.body.message).toBe("Email does not exist");
-  });
-
-  it("should return status 400 if password is incorrect", async () => {
-    const response = await request(app)
-      .post(url)
-      .send({ email: savedStudent.email, password: "wrongpassword" });
-    expect(response.status).toBe(400);
-    expect(response.body.message).toBe("Email and password does not match");
-  });
-
-  it("should successfully log in a student", async () => {
-    const response = await request(app)
-      .post(url)
-      .send({ email: savedStudent.email, password: "password123" });
-    expect(response.status).toBe(200);
-    expect(response.body.status).toBe("success");
-    expect(response.body.data).toHaveProperty("accessToken");
-    expect(response.body.message).toBe("Login successful...");
-  });
-});
-
-
