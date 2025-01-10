@@ -58,6 +58,7 @@ mongoose
     console.log("...........Database connected successfully...........");
     app.listen(3000, () => {
       console.log(`API is live on http://localhost:${PORT}`);
+      console.log(`Swagger is live on http://localhost:${PORT}/api-docs`);
     });
   })
   .catch((err) => {
