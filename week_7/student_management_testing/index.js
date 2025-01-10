@@ -58,14 +58,14 @@ app.use(errorHandler);
 //connecting to db
 const PORT = process.env.PORT;
 const dbURI = process.env.dbURI;
-mongoose
-  .connect(dbURI)
-  .then(() => {
-    console.log("...........Database connected successfully...........");
-  })
-  .catch((err) => {
-    console.log(err);
-  });
+// mongoose
+//   .connect(dbURI)
+//   .then(() => {
+//     console.log("...........Database connected successfully...........");
+//   })
+//   .catch((err) => {
+//     console.log(err);
+//   });
 
 const server = app.listen(PORT, () => {
   console.log(`API is live on http://localhost:${PORT}`);

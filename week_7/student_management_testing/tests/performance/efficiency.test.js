@@ -1,5 +1,5 @@
 const mockingoose = require('mockingoose');
-const Student = require('../../models/student'); // Replace with your Student model
+const Student = require('../../model/student'); // Replace with your Student model
 
 describe('Performance Test: Database Query Efficiency', () => {
   it('should retrieve students efficiently', async () => {
