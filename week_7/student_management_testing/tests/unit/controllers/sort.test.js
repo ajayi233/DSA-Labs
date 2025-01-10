@@ -1,6 +1,6 @@
 const Student = require("../../../model/student");
 const Course = require("../../../model/course");
-const quickSort = require("../../../sortingAlg/sortStudent");
+const { quickSort } = require("../../../sortingAlg/sortStudent");
 const { quickSortCourse } = require("../../../sortingAlg/sortCourse");
 const { sortStudents, sortCourses } = require("../../../controllers/sort");
 
@@ -10,148 +10,169 @@ jest.mock("../../../model/course");
 jest.mock("../../../sortingAlg/sortStudent");
 jest.mock("../../../sortingAlg/sortCourse");
 
-describe("Sort Controllers", () => {
+
+describe('Sort Controllers', () => {
   let mockReq;
   let mockRes;
 
   beforeEach(() => {
-    // Reset all mocks
-    jest.clearAllMocks();
-
-    // Mock response object
+    mockReq = { query: {} };
     mockRes = {
       status: jest.fn().mockReturnThis(),
-      json: jest.fn(),
+      json: jest.fn()
     };
+    jest.clearAllMocks();
   });
 
   describe("sortStudents", () => {
-    const mockStudents = [
-      { lastName: "Smith", firstName: "John" },
-      { lastName: "Doe", firstName: "Jane" },
-    ];
-
+    let mockReq;
+    let mockRes;
+  
     beforeEach(() => {
       mockReq = {
-        query: {}
+        query: {}, // Default query params
       };
-      // Default mock implementation for Student.find()
-      Student.find.mockResolvedValue(mockStudents);
-      // Default mock implementation for quickSort
-      quickSort.mockImplementation((students) => students);
+      mockRes = {
+        json: jest.fn(),
+        status: jest.fn().mockReturnThis(),
+      };
+  
+      jest.clearAllMocks();
     });
-
+  
+    const mockStudents = [
+      { firstName: "John", lastName: "Doe" },
+      { firstName: "Jane", lastName: "Smith" },
+    ];
+  
     it("should sort students with default parameters", async () => {
-      const sortedStudents = [...mockStudents];
-      quickSort.mockReturnValue(sortedStudents);
-
+      Student.find.mockResolvedValue(mockStudents); // Mock database query
+      quickSort.mockReturnValue(mockStudents); // Mock sorting
+  
       await sortStudents(mockReq, mockRes);
-
-      expect(Student.find).toHaveBeenCalled();
-      expect(quickSort).toHaveBeenCalledWith(mockStudents, "lastName", "asc");
-      expect(mockRes.json).toHaveBeenCalledWith(sortedStudents);
+  
+      expect(Student.find).toHaveBeenCalled(); // Ensure database is queried
+      expect(quickSort).toHaveBeenCalledWith(mockStudents, "lastName", "asc"); // Ensure sorting with default params
+      expect(mockRes.json).toHaveBeenCalledWith(mockStudents); // Ensure response is sent
     });
-
+  
     it("should sort students with custom parameters", async () => {
       mockReq.query = { sortBy: "firstName", order: "desc" };
-      const sortedStudents = [...mockStudents].reverse();
-      quickSort.mockReturnValue(sortedStudents);
-
+      Student.find.mockResolvedValue(mockStudents); // Mock database query
+      quickSort.mockReturnValue(mockStudents); // Mock sorting
+  
       await sortStudents(mockReq, mockRes);
-
-      expect(Student.find).toHaveBeenCalled();
-      expect(quickSort).toHaveBeenCalledWith(mockStudents, "firstName", "desc");
-      expect(mockRes.json).toHaveBeenCalledWith(sortedStudents);
+  
+      expect(quickSort).toHaveBeenCalledWith(mockStudents, "firstName", "desc"); // Ensure sorting with custom params
+      expect(mockRes.json).toHaveBeenCalledWith(mockStudents); // Ensure response is sent
     });
-
-    it("should handle database errors properly", async () => {
-      const error = new Error("Database error");
-      Student.find.mockRejectedValue(error);
-
+  
+    it("should handle empty student list", async () => {
+      Student.find.mockResolvedValue([]); // Mock empty result from database
+      quickSort.mockReturnValue([]); // Mock sorting of empty list
+  
       await sortStudents(mockReq, mockRes);
-
-      expect(mockRes.status).toHaveBeenCalledWith(500);
+  
+      expect(mockRes.json).toHaveBeenCalledWith([]); // Ensure response is empty list
+    });
+  
+    it("should handle database error", async () => {
+      Student.find.mockRejectedValue(new Error("Database error")); // Mock database error
+  
+      await sortStudents(mockReq, mockRes);
+  
+      expect(mockRes.status).toHaveBeenCalledWith(500); // Ensure error status is sent
       expect(mockRes.json).toHaveBeenCalledWith({
-        error: "Something went wrong while sorting students."
-      });
+        error: "Something went wrong while sorting students.",
+      }); // Ensure error response is sent
     });
-
-    it("should handle sorting algorithm errors", async () => {
+  
+    it("should handle sorting error", async () => {
+      Student.find.mockResolvedValue(mockStudents); // Mock database query
       quickSort.mockImplementation(() => {
         throw new Error("Sorting error");
-      });
-
+      }); // Mock sorting error
+  
       await sortStudents(mockReq, mockRes);
-
-      expect(mockRes.status).toHaveBeenCalledWith(500);
+  
+      expect(mockRes.status).toHaveBeenCalledWith(500); // Ensure error status is sent
       expect(mockRes.json).toHaveBeenCalledWith({
-        error: "Something went wrong while sorting students."
-      });
+        error: "Something went wrong while sorting students.",
+      }); // Ensure error response is sent
     });
   });
 
-  describe("sortCourses", () => {
+  describe('sortCourses', () => {
     const mockCourses = [
-      { code: "CS101", name: "Introduction to Programming" },
-      { code: "CS102", name: "Data Structures" },
+      { code: 'CS101', name: 'Intro to CS' },
+      { code: 'CS102', name: 'Data Structures' }
     ];
 
-    beforeEach(() => {
-      mockReq = {
-        query: {}
-      };
-      // Default mock implementation for Course.find()
+    it('should sort courses with default parameters', async () => {
       Course.find.mockResolvedValue(mockCourses);
-      // Default mock implementation for quickSortCourse
-      quickSortCourse.mockImplementation((courses) => courses);
-    });
-
-    it("should sort courses with default parameters", async () => {
-      const sortedCourses = [...mockCourses];
-      quickSortCourse.mockReturnValue(sortedCourses);
+      quickSortCourse.mockReturnValue(mockCourses);
 
       await sortCourses(mockReq, mockRes);
 
       expect(Course.find).toHaveBeenCalled();
-      expect(quickSortCourse).toHaveBeenCalledWith(mockCourses, "code", "asc");
-      expect(mockRes.json).toHaveBeenCalledWith(sortedCourses);
+      expect(quickSortCourse).toHaveBeenCalledWith(mockCourses, 'code', 'asc');
+      expect(mockRes.json).toHaveBeenCalledWith(mockCourses);
     });
 
-    it("should sort courses with custom parameters", async () => {
-      mockReq.query = { sortBy: "name", order: "desc" };
-      const sortedCourses = [...mockCourses].reverse();
-      quickSortCourse.mockReturnValue(sortedCourses);
+    it('should sort courses with custom parameters', async () => {
+      mockReq.query = { sortBy: 'name', order: 'desc' };
+      Course.find.mockResolvedValue(mockCourses);
+      quickSortCourse.mockReturnValue(mockCourses);
 
       await sortCourses(mockReq, mockRes);
 
-      expect(Course.find).toHaveBeenCalled();
-      expect(quickSortCourse).toHaveBeenCalledWith(mockCourses, "name", "desc");
-      expect(mockRes.json).toHaveBeenCalledWith(sortedCourses);
+      expect(quickSortCourse).toHaveBeenCalledWith(mockCourses, 'name', 'desc');
+      expect(mockRes.json).toHaveBeenCalledWith(mockCourses);
     });
 
-    it("should handle database errors properly", async () => {
-      const error = new Error("Database error");
-      Course.find.mockRejectedValue(error);
+    it('should handle empty course list', async () => {
+      Course.find.mockResolvedValue([]);
+      quickSortCourse.mockReturnValue([]);
+
+      await sortCourses(mockReq, mockRes);
+
+      expect(mockRes.json).toHaveBeenCalledWith([]);
+    });
+
+    it('should handle database error', async () => {
+      Course.find.mockRejectedValue(new Error('Database error'));
 
       await sortCourses(mockReq, mockRes);
 
       expect(mockRes.status).toHaveBeenCalledWith(500);
       expect(mockRes.json).toHaveBeenCalledWith({
-        error: "Something went wrong while sorting courses."
+        error: 'Something went wrong while sorting courses.'
       });
     });
 
-    it("should handle sorting algorithm errors", async () => {
+    it('should handle sorting error', async () => {
+      Course.find.mockResolvedValue(mockCourses);
       quickSortCourse.mockImplementation(() => {
-        throw new Error("Sorting error");
+        throw new Error('Sorting error');
       });
 
       await sortCourses(mockReq, mockRes);
 
       expect(mockRes.status).toHaveBeenCalledWith(500);
       expect(mockRes.json).toHaveBeenCalledWith({
-        error: "Something went wrong while sorting courses."
+        error: 'Something went wrong while sorting courses.'
       });
+    });
+
+    it('should handle undefined query parameters', async () => {
+      mockReq.query = { sortBy: undefined, order: undefined };
+      Course.find.mockResolvedValue(mockCourses);
+      quickSortCourse.mockReturnValue(mockCourses);
+
+      await sortCourses(mockReq, mockRes);
+
+      expect(quickSortCourse).toHaveBeenCalledWith(mockCourses, 'code', 'asc');
+      expect(mockRes.json).toHaveBeenCalledWith(mockCourses);
     });
   });
 });

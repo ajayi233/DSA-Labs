@@ -125,7 +125,7 @@ exports.updateCourseById = async (req, res) => {
       credits,
       instructor: Instructor._id,
       duration,
-    }
+    },{new:true,runValidators:true}
   );
 
   //validation

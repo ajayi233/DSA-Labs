@@ -131,7 +131,7 @@ describe("Auth Controller", () => {
         });
         expect(res.status).toHaveBeenCalledWith(400);
         expect(res.json).toHaveBeenCalledWith({
-          message: "Email does not exist...",
+          message: "Email does not exist",
         });
       });
 
@@ -153,7 +153,7 @@ describe("Auth Controller", () => {
         );
         expect(res.status).toHaveBeenCalledWith(400);
         expect(res.json).toHaveBeenCalledWith({
-          message: "Email and password does not match...",
+          message: "Email and password does not match",
         });
       });
 

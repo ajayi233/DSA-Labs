@@ -21,4 +21,4 @@ function quickSort(arr, key, order = "asc") {
   ];
 }
 
-module.exports = quickSort;
+module.exports = {quickSort};
