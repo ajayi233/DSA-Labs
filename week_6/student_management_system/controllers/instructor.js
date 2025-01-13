@@ -16,19 +16,27 @@ exports.addInstructor = async (req, res) => {
   } = req.body;
 
   //validation
-  if (!firstName) throw "Instructor first name is required...";
-  if (!lastName) throw "Instructor last name is required...";
-  if (!email) throw "Instructor email is required...";
-  if (!password) throw "Instructor password is required...";
-  if (!dateOfBirth) throw "Instructor date of birth is required...";
-  if (!phone) throw "Instructor phone is required...";
-  if (!address) throw "Instructor address is required...";
-  if (!hireDate) throw "Instructor hire date is required...";
-  if (!department) throw "Instructor department is required...";
+  if (
+    !firstName ||
+    !lastName ||
+    !email ||
+    !password ||
+    !dateOfBirth ||
+    !phone ||
+    !address ||
+    !hireDate ||
+    !department
+  )
+    return res
+      .status(400)
+      .json({ status: "fail", error: "Please fill all the fields" });
 
   //email validation
   const getDuplicateEmail = await Instructor.findOne({ email: email });
-  if (getDuplicateEmail) throw "Email already exists...";
+  if (getDuplicateEmail)
+    return res
+      .status(400)
+      .json({ status: "fail", error: "Email already exists" });
 
   const generateRandomId = () => {
     const prefix = "INSTR";
@@ -110,6 +118,8 @@ exports.getInstructorById = async (req, res) => {
 //update instructor by id
 exports.updateInstructorById = async (req, res) => {
   const id = req.params.id;
+
+  
   const {
     firstName,
     lastName,

@@ -41,7 +41,7 @@ exports.studentLogin = async (req, res) => {
     data: {
       accessToken,
     },
-    message: "Login successful...",
+    message: "Login successful",
   });
 };
 
@@ -61,7 +61,7 @@ exports.instructorLogin = async (req, res) => {
   if (!checkPassword)
     return res
       .status(400)
-      .json({ message: "Email and password does not match" });
+      .json({ message: "Email and password does not match..." });
 
   //jwt bearer token
   const accessToken = await jwt.sign(
@@ -80,7 +80,7 @@ exports.instructorLogin = async (req, res) => {
     data: {
       accessToken,
     },
-    message: "Login successful...",
+    message: "Login successful",
   });
 };
 

@@ -11,16 +11,22 @@ const authRouter = require("./routes/auth");
 const sortRouter = require("./routes/sort");
 const swaggerUI = require("swagger-ui-express");
 const swaggerSpec = require("./swagger/swagger");
-const {connectRedis} = require("./utils/redis");
+const { connectRedis } = require("./utils/redis");
+const hpp= require('hpp');
+const helmet = require('helmet');
+const expressMongoSanitize = require('express-mongo-sanitize');
+const xss = require('xss');
 
 const app = express();
 
-
-connectRedis(); //connecting to redis
+// connectRedis(); //connecting to redis
 
 //adding middleware
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(hpp());
+app.use(helmet());
+app.use(expressMongoSanitize());
 
 //routes
 app.get("/", (req, res) => {
@@ -52,14 +58,17 @@ app.use(errorHandler);
 //connecting to db
 const PORT = process.env.PORT;
 const dbURI = process.env.dbURI;
-mongoose
-  .connect(dbURI)
-  .then(() => {
-    console.log("...........Database connected successfully...........");
-    app.listen(3000, () => {
-      console.log(`API is live on http://localhost:${PORT}`);
-    });
-  })
-  .catch((err) => {
-    console.log(err);
-  });
+// mongoose
+//   .connect(dbURI)
+//   .then(() => {
+//     console.log("...........Database connected successfully...........");
+//   })
+//   .catch((err) => {
+//     console.log(err);
+//   });
+
+const server = app.listen(PORT, () => {
+  console.log(`API is live on http://localhost:${PORT}`);
+});
+
+module.exports = {server,app};

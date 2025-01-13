@@ -1,6 +1,7 @@
 const { redisClient } = require('../utils/redis');
 const logger = require('../utils/logger');
 
+
 const cache = (duration) => {
   return async (req, res, next) => {
     const key = `cache:${req.originalUrl}`;

@@ -37,7 +37,7 @@ exports.registerStudent = async (req, res) => {
 
   //email validation
   const getDuplicateEmail = await Student.findOne({ email: email });
-  if (getDuplicateEmail) throw "Email already exists...";
+  if (getDuplicateEmail) return res.status(400).json({ success: false, error: "Email already exists" });
 
   //student ID
   const generateRandomId = () => {
