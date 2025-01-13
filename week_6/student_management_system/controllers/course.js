@@ -12,17 +12,21 @@ exports.addCourse = async (req, res) => {
   const { name, code, description, credits, instructorID, duration } = req.body;
 
   //validation
-  if (!name) throw "Course name is required";
-  if (!code) throw "Course code is required";
-  if (!description) throw "Course description is required";
-  if (!credits) throw "Course credits is required";
-  if (!instructorID) throw "Course instructor is required";
-  if (!duration) throw "Course duration is required";
+  if (!name || !code || !description || !credits || !instructorID || !duration)
+    return res.status(400).json({
+      status: "fail",
+      error: "All fields are required",
+    });
 
   const getInstructor = await Instructor.findOne({
     InstructorID: instructorID,
   });
-  if (!getInstructor) throw "Instructor not found";
+  if (!getInstructor) {
+    return res.status(400).json({
+      status: "fail",
+      message: "Instructor does not exist",
+    });
+  }
   const InstructorID = getInstructor._id;
 
   //creating course
@@ -121,7 +125,7 @@ exports.updateCourseById = async (req, res) => {
       credits,
       instructor: Instructor._id,
       duration,
-    }
+    },{new:true,runValidators:true}
   );
 
   //validation
