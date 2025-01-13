@@ -12,10 +12,10 @@ const sortRouter = require("./routes/sort");
 const swaggerUI = require("swagger-ui-express");
 const swaggerSpec = require("./swagger/swagger");
 const { connectRedis } = require("./utils/redis");
-const hpp= require('hpp');
-const helmet = require('helmet');
-const expressMongoSanitize = require('express-mongo-sanitize');
-const xss = require('xss');
+const hpp = require("hpp");
+const helmet = require("helmet");
+const expressMongoSanitize = require("express-mongo-sanitize");
+const xss = require("xss");
 
 const app = express();
 
@@ -58,6 +58,7 @@ app.use(errorHandler);
 //connecting to db
 const PORT = process.env.PORT;
 const dbURI = process.env.dbURI;
+//database is commented to avoid connection to the database
 // mongoose
 //   .connect(dbURI)
 //   .then(() => {
@@ -71,4 +72,4 @@ const server = app.listen(PORT, () => {
   console.log(`API is live on http://localhost:${PORT}`);
 });
 
-module.exports = {server,app};
+module.exports = { server, app };
